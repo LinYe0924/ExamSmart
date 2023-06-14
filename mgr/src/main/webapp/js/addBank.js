@@ -52,6 +52,11 @@ function updateBtn(){
 		单选题
 		</div>
 		<div class="panel-body">
+		<div class="inputText" style="margin-left: -4px;">
+		    <div class="classFont">题号</div>
+		    <input type="text" class="input" id="bankProValue" readonly="readonly">
+		</div>
+		</br>
 		<div>
 			<div>请输入题目内容：</div>
 			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
@@ -99,6 +104,11 @@ function updateBtn(){
  		多选题
  		</div>
  		<div class="panel-body">
+		<div class="inputText" style="margin-left: -4px;">
+		    <div class="classFont">题号</div>
+		    <input type="text" class="input" id="bankProValue" readonly="readonly">
+		</div>
+		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
@@ -108,8 +118,9 @@ function updateBtn(){
 			<textarea class="form-control" rows="2" id="chooseText" placeholder="请输入选项内容"></textarea>
 		</div>
 		<div>
-		是否是答案：是：<input id="yesAnswer" type="radio"  name="yesAnswer">
-		否：<input id="noAnswer" type="radio"  name="yesAnswer">
+		是否是答案：<input id="yesAnswer" type="radio"  name="yesAnswer">&nbsp是
+		&nbsp&nbsp&nbsp
+		<input id="noAnswer" type="radio"  name="yesAnswer">&nbsp否
 		</div>
  		<button class="btn btn-info " type="button" onclick="addChoose()" id="addChooseBtn">添加选项</button>
 		  <table class="informationTable" id="chooseTable" style="border-collapse: collapse;">
@@ -129,19 +140,26 @@ function updateBtn(){
  	var blank=document.getElementById("blank");
  	blank.style.backgroundColor="rgb(75, 125, 252)";
 	blank.style.color="#FFF";
-	
+
  	 $(".panel").html(`
- 		
  		<div class="panel-heading" style="background-color: rgb(75, 125, 252); border-top: none; font-size: 20px; color: #FFF;">
  		填空题
  		</div>
  		<div class="panel-body">
+		<div class="inputText" style="margin-left: -4px;">
+		    <div class="classFont">题号</div>
+		    <input type="text" class="input" id="bankProValue" readonly="readonly">
+		</div>
+		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
  		</div>
+ 		<div>
+ 			<div>请输入答案：</div>
+ 			<div><textarea class="form-control" rows="3" placeholder="请输入答案"></textarea></div>
  		</div>
- 		
+ 		</div>
  		`);
  })
 
@@ -152,17 +170,25 @@ function updateBtn(){
  	yesOrNo.style.backgroundColor="rgb(75, 125, 252)";
 	yesOrNo.style.color="#FFF";
  	 $(".panel").html(`
- 		
  		<div class="panel-heading" style="background-color: rgb(75, 125, 252); border-top: none; font-size: 20px; color: #FFF;">
  		判断题
  		</div>
  		<div class="panel-body">
+		<div class="inputText" style="margin-left: -4px;">
+		    <div class="classFont">题号</div>
+		    <input type="text" class="input" id="bankProValue" readonly="readonly">
+		</div>
+		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
  		</div>
+		<div>
+		请选择答案：<input id="yesChoose" type="radio"  name="yesChoose">&nbsp是
+		&nbsp&nbsp&nbsp
+		<input id="noChoose" type="radio"  name="yesChoose">&nbsp否
+		</div>
  		</div>
- 		
  		`);
  })
 
@@ -177,14 +203,16 @@ function addChoose(){
 		yesAnswer="否";
 	}
 	document.getElementById("chooseTable").innerHTML+=
-	`   
-		<tr>
+	`<tr>
 	<td>${moreChoose}</td>
 	<td>${chooseText}</td>
 	<td>${yesAnswer}</td>
 	</tr>
 	</table>`
 	moreChoose++;
+ }
+ function selectChoose(e){
+	 
  }
  
  
