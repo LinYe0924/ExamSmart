@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/jquery-3.6.0.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link href="css/login.css" rel="stylesheet"/>
+<script src="js/jquery.md5.js"></script>
+</head>
+
+
+<body>
+<div class="table">
+    <div class="head">
+        <div class="tittle">
+            管理员登陆
+        </div>
+        <div class="inputText">
+            <div class="classFont">手机号</div>
+            <input type="text" class="input" id="telText" value="12345678910">
+        </div>
+        <div class="inputText">
+            <div class="classFont">密码</div>
+            <input type="password" class="input" id="pwdText" value="123456">
+        </div>
+        <div class="codeInputText" style="display: inline-block">
+            <div class="classFont">验证码</div>
+            <input type="text" class="codeInput" id="codeText">
+        </div>
+        <img src="code" id="code" onclick="updateCode(this)">
+    </div>
+    <div class="sendDiv">
+        <button class="sendBtn" id="loginBut">登陆</button>
+    </div>
+</div>
+
+</body>
+
+<script src="js/login.js"></script>
+</html>

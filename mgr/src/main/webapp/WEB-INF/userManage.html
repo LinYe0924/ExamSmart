@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+
+</head>
+ <link href="css/userManage.css" rel="stylesheet"/>
+<body>
+<div class="right">
+    <div class="lineTitle">
+        人员管理
+    </div>
+    <div class="buttonGroup">
+        <div class="inputText">
+            <div class="classFont">用户名</div>
+            <input type="text" class="input" id="nameValue">
+        </div>
+		<div class="inputText">
+		    <div class="classFont">手机号</div>
+		    <input type="text" class="input" id="telValue">
+		</div>
+        <div class="inputText">
+            <div class="classFont">角色</div>
+            <select class="input"  id="selectRoleValue">
+                <option value="4">所有</option>
+                <option value="2">管理员</option>
+                <option value="3">教师</option>
+            </select>
+        </div>
+        <div class="inputText">
+            <div class="classFont">状态</div>
+            <select class="input" id="selectStatesValue">
+				<option value="2">所有</option>
+                <option value="0">已停用</option>
+                <option value="1">启用中</option>
+            </select>
+        </div>
+        <button id="selectBtn">搜索</button>
+        <button id="insert" style="background-color: rgb(86,174,60)" >新增</button>
+    </div>
+    <div class="information">
+        <div class="informationTittle">
+
+        </div>
+        <table class="informationTable" id="table" style="border-collapse: collapse;">
+            <tr style="background-color: rgb(229,229,229);">
+               <td>用户编号</td>
+               <td>用户名</td>
+               <td>手机号</td>
+               <td>角色</td>
+               <td>注册时间</td>
+               <td>状态</td>
+                <td style="width: 490px">操作</td>
+            </tr>
+            
+        </table>
+        <div class="turnPage" style="margin-left: 350px ; margin-top: 10px">
+
+            <button id="upPage">上一页</button>
+            <span id="currentPage">1</span>
+            <span>/</span>
+            <span id="sumPage">2</span>
+            <button id="downPage">下一页</button>
+        </div>
+    </div>
+</div>
+<div class="overCurtain" id="overCurtain">
+    <div class="insertPage" id="insertPage">
+
+        <div class="insertInputText">
+            <div class="insertClassFont">用户名</div>
+            <input type="text" class="insertInput" placeholder="请输入用户名" id="uAcc">
+        </div>
+        <br>
+		<div class="insertInputText">
+		    <div class="insertClassFont">手机号</div>
+		    <input type="text" class="insertInput" placeholder="请输入手机号" id="uTel">
+		</div>
+		<br>
+        <div class="insertInputText">
+            <div class="insertClassFont">邮箱</div>
+            <input type="text" class="insertInput" placeholder="请输入邮箱" id="uEmail">
+        </div>
+		<br>
+        <div class="insertInputText">
+            <div class="insertClassFont">角色</div>
+            <select class="insertInput" style="width: 310px" id="role">
+                <option value="2">管理员</option>
+                <option value="3">教师</option>
+            </select>
+        </div>
+        
+        <div style="text-align: right; line-height: 100px;margin-right: 30px">
+            <button style=" background-color: #cf7456; " id="closeOver" value="关闭">关闭</button>
+            <button style="background-color: #2860bd; " id="confirm">确认</button>
+        </div>
+
+    </div>
+</div>
+<div class="overCurtain" id="overCurtain2">
+    <div class="setPage" id="setPage">
+        <div class="insertInputText">
+            <div class="insertClassFont">用户编号</div>
+            <input type="text" class="insertInput" id="setInput" readonly="readonly">
+        </div>
+		<br>
+		<div class="insertInputText">
+		    <div class="insertClassFont">用户名</div>
+		    <input type="text" class="insertInput" placeholder="请输入用户名" id="uName">
+		</div>
+		<br>
+		<div class="insertInputText">
+		    <div class="insertClassFont">手机号</div>
+		    <input type="text" class="insertInput" placeholder="请输入手机号" id="userTel">
+		</div>
+		<br>
+        <div class="setInputText">
+            <div class="setClassFont">角色</div>
+            <select class="setInput" id="setRole">
+                <option value="2">管理员</option>
+                <option value="3">教师</option>
+            </select>
+        </div>
+        
+        <div style="text-align: right; line-height: 100px;margin-right: 30px">
+            <button style="background-color: #cf7456; " id="closeOver2">关闭</button>
+            <button style="background-color: #2860bd; " id="confirm2">确认</button>
+        </div>
+    </div>
+</div>
+</body><script src="js/Tool.js"></script>
+<script src="js/userManage.js"></script>
+
+</html>

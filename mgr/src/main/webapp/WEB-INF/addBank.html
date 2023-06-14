@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/jquery-3.6.0.min.js"></script>
+		<!-- ZUI 标准版压缩后的 CSS 文件 -->
+		  <link rel="stylesheet" href="dist/css/zui.min.css">
+		  <!-- ZUI Javascript 依赖 jQuery -->
+		  <script src="dist/lib/jquery/jquery.js"></script>
+		  <!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+		  <script src="dist/js/zui.min.js"></script>
+		  <link href="dist/lib/datagrid/zui.datagrid.min.css" rel="stylesheet">
+		  <script src="dist/lib/datagrid/zui.datagrid.min.js"></script>
+		<meta charset="utf-8">
+		<title>创建题库</title>
+	</head>
+	<link href="css/addBank.css" rel="stylesheet"/>
+	<body>
+		<div class="right">
+		<div class="lineTitle">
+		    创建题库
+		</div>
+		<div class="buttonGroup">
+		    <div class="inputText">
+		        <div class="classFont">题库名</div>
+		        <input type="text" class="input" id="problemValue">
+		    </div>
+			<div class="inputText">
+			    <div class="classFont">创建人</div>
+			    <input type="text" class="input" id="userNameValue" readonly="readonly">
+			</div>
+		    <div class="inputText">
+		        <div class="classFont">所属科目</div>
+		        <select class="input"  id="typeValue">
+		            <option value="1">语文</option>
+		            <option value="2">数学</option>
+					<option value="3">英语</option>
+					<option value="4">物理</option>
+					<option value="5">生物</option>
+					<option value="6">化学</option>
+					<option value="7">政治</option>
+					<option value="8">历史</option>
+					<option value="9">地理</option>
+					<option value="10">其他</option>
+		        </select>
+		    </div>
+		    <div class="inputText">
+		        <div class="classFont">使用权限</div>
+		        <select class="input" id="selectStatesValue">
+		            <option value="0">所有人</option>
+		            <option value="1">仅自己</option>
+		        </select>
+		    </div>
+		    <button id="selectBtn">新增题库</button>
+		    <!-- 对话框触发按钮 -->
+		    <button data-toggle="modal" data-target="#myModal" id="insterProblem" style="background-color: darkslategray;">手动添加试题</button>
+			<button id="insert" style="background-color: rgb(38,48,92)" >一键添加试题</button>
+			<button onclick="delUser(this)" class="altBtn" style="background-color: rgb(221,110,78)">批量删除</button>
+		</div>
+		<div class="information">
+		        <div class="informationTittle">
+		
+		        </div>
+				
+		        <table class="informationTable" id="table" style="border-collapse: collapse;">
+		              <colgroup>
+		                <col style="width: 5%;">
+		                <col style="width: 5%;">
+						<col style="width: 40%;">
+						<col style="width: 10%;">
+						<col style="width: 15%;">
+						<col style="width: 10%;">
+						<col style="width: 15%;">
+		              </colgroup>
+					<tr style="background-color: rgb(229,229,229);">
+		               <td><input type="checkbox" id="changeAll"  name="choose" value="changeAll">全选</td>
+					   <td>题目编号</td>
+		               <td>题干</td>
+					   <td>题型</td>
+					   <td>选项</td>
+		               <td>答案</td>              
+						<td>操作</td>
+		            </tr>
+		            <tr>
+						 <td><input type="checkbox" class="samllChoose" name="choose" value="1"></td>
+						 <td>1</td>
+						 <td>母猪的产后护理要从产前开始？</td>
+						 <td>判断题</td>
+						 <td><button class="selectChoose" style="background-color: rgb(168,131,68); width: 70px;">查看选项</button></td>
+						 <td>对</td>
+						 <td><button onclick="setUser(this)" class="altBtn" style="background-color: rgb(75,125,252);">修改</button>
+						 <button onclick="delUser(this)" class="altBtn" style="background-color: rgb(221,110,78)">删除</button></td>
+					</tr>
+					<tr>
+						 <td><input type="checkbox" class="samllChoose"  name="choose" value="2"></td>
+						 <td>2</td>
+						 <td>母猪的产后护理要从产前开始？</td>
+						 <td>判断题</td>
+						 <td><button class="selectChoose" style="background-color: rgb(168,131,68); width: 70px;">查看选项</button></td>
+						 <td>对</td>
+						 <td><button onclick="setUser(this)" class="altBtn" style="background-color: rgb(75,125,252);">修改</button>
+						 <button onclick="delUser(this)" class="altBtn" style="background-color: rgb(221,110,78)">删除</button></td>
+					</tr>
+		        </table>
+		        <div class="turnPage" style="margin-left: 350px ; margin-top: 10px">
+		
+		            <button id="upPage">上一页</button>
+		            <span id="currentPage">1</span>
+		            <span>/</span>
+		            <span id="sumPage">2</span>
+		            <button id="downPage">下一页</button>
+		        </div>
+		    </div>
+		</div>
+		<!-- 手动添加试题的对话框HTML -->
+		<div class="modal fade" id="myModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		     <div class="modal-header">
+		             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+		             <h4 class="modal-title">新增试题</h4>
+		           </div>
+		           <div class="modal-body">
+					
+					<div>
+						请选择题型
+						<br />
+						<!-- 题型选择 -->
+						<div class="btn-group">
+						  <button type="button" class="btn btn-lg" id="oneChoose" style="border-bottom: none;">单选题</button>
+						  <button type="button" class="btn btn-lg" id="moreChoose" style="border-bottom: none;">多选题</button>
+						  <button type="button" class="btn btn-lg" id="blank" style="border-bottom: none;">填空题</button>
+						  <button type="button" class="btn btn-lg" id="yesOrNo" style="border-bottom: none;">判断题</button>
+						</div>
+					</div>
+					<div class="probleamPanel">
+						<div class="panel" style="border-top: none;">
+						 
+					</div>
+		           </div>
+		           <div class="modal-footer">
+		             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		             <button type="button" class="btn btn-primary" id="keepPwd">保存</button>
+		           </div>
+		    </div>
+		  </div>
+		</div>
+		<script src="js/addBank.js"></script>
+	</body>
+</html>
