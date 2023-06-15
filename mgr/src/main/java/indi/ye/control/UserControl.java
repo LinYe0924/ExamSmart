@@ -32,23 +32,7 @@ import java.util.List;
 @RestController
 public class UserControl {
     @Resource
-    LoginService loginService;
-    @Resource
-    SelectUserService selectUserService;
-    @Resource
-    SetStateService setStateService;
-    @Resource
-    ResettingPwdService resettingPwdService;
-    @Resource
-    SetUserInfoService setUserInfoService;
-    @Resource
-    InsertUserService insertUserService;
-    @Resource
-    FindUserService findUserService;
-    @Resource
-    SelectSetPwdService selectSetPwdService;
-    @Resource
-    SetPwdService setPwdService;
+   UserService userService;
     @GetMapping("/doLogin")
     public JsonDto login(HttpServletRequest req){
 
@@ -59,7 +43,7 @@ public class UserControl {
         String code = req.getParameter("uCode");
         String codeStr = (String) req.getSession().getAttribute("codeStr");
         UserPojo userPojo=new UserPojo(uTel,uPwd);
-        String res=loginService.login(uTel,uPwd);
+        String res=userService.login(uTel,uPwd);
         int userId=0;
         int roleId=0;
         int state=0;
@@ -130,8 +114,8 @@ public class UserControl {
     public JsonDto selectUser(HttpServletRequest req){
         int page = Integer.parseInt(req.getParameter("page"));
         int roleId = Integer.parseInt(req.getParameter("roleId"));
-        int num = selectUserService.selectUserSize(roleId);
-        List<UserManagePojo> userInfoPojoList= selectUserService.selectUsers(page,num,roleId);
+        int num = userService.selectUserSize(roleId);
+        List<UserManagePojo> userInfoPojoList= userService.selectUsers(page,num,roleId);
         if(num%5==0){
             num=num/5;
         }else {
@@ -148,7 +132,7 @@ public class UserControl {
     public JsonDto setUserState(HttpServletRequest req){
         int userId = Integer.parseInt(req.getParameter("userId"));
         int setNum = Integer.parseInt(req.getParameter("setNum"));
-        boolean res = setStateService.setUserState(userId, setNum);
+        boolean res = userService.setUserState(userId, setNum);
         JsonDto jsonDto=new JsonDto();
         jsonDto.getData().put("res",res);
         return jsonDto;
@@ -156,7 +140,7 @@ public class UserControl {
     @PostMapping("/resettingPwd")
     public JsonDto resettingPwd(HttpServletRequest req){
         int userId = Integer.parseInt(req.getParameter("userId"));
-        boolean res=resettingPwdService.resettingPwd(userId);
+        boolean res=userService.resettingPwd(userId);
         JsonDto jsonDto=new JsonDto();
         jsonDto.getData().put("res",res);
         return jsonDto;
@@ -167,7 +151,7 @@ public class UserControl {
         String userName = req.getParameter("userName");
         String userTel = req.getParameter("userTel");
         int roleId = Integer.parseInt(req.getParameter("roleId"));
-        boolean res=setUserInfoService.setUserInfo(userId,userName,userTel,roleId);
+        boolean res=userService.setUserInfo(userId,userName,userTel,roleId);
         JsonDto jsonDto=new JsonDto();
         jsonDto.getData().put("res",res);
         return jsonDto;
@@ -178,7 +162,7 @@ public class UserControl {
         String userTel = req.getParameter("userTel");
         String userEmail = req.getParameter("userEmail");
         int roleId = Integer.parseInt(req.getParameter("roleId"));
-        boolean res=insertUserService.insertUser(userName,userTel,userEmail,roleId);
+        boolean res=userService.insertUser(userName,userTel,userEmail,roleId);
         JsonDto jsonDto=new JsonDto();
         if(res){
             jsonDto.getData().put("res",res);
@@ -191,7 +175,7 @@ public class UserControl {
         String userTel = req.getParameter("userTel");
         int selectRoleId = Integer.parseInt(req.getParameter("selectRoleId"));
         int stateId=Integer.parseInt(req.getParameter("stateId"));
-        List<UserManagePojo> list = findUserService.findUser(userName, userTel, selectRoleId, stateId);
+        List<UserManagePojo> list = userService.findUser(userName, userTel, selectRoleId, stateId);
         int num=list.size();
         if(num%5==0){
             num=num/5;
@@ -210,9 +194,9 @@ public class UserControl {
         String oldPwd = req.getParameter("oldPwd");
         String newPwd = req.getParameter("newPwd");
         String res;
-        boolean pwdRes = selectSetPwdService.selectPwd(userId, oldPwd);
+        boolean pwdRes = userService.selectPwd(userId, oldPwd);
         if(pwdRes){
-            boolean setPwdRes = setPwdService.setPwd(userId, newPwd);
+            boolean setPwdRes = userService.setPwd(userId, newPwd);
             if (setPwdRes){
                 res="true";
             }else {
