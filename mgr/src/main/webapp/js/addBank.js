@@ -1,6 +1,6 @@
-
- let moreChoose=1;
- let userName=localStorage.getItem("userName");
+let moreChoose=1;
+let typeChange=0;
+let userName=localStorage.getItem("userName");
 $("#userNameValue").val(userName);
 $("#changeAll").click(function(){
 	getChoose();
@@ -47,16 +47,12 @@ function updateBtn(){
 	var oneChoose=document.getElementById("oneChoose");
 	oneChoose.style.backgroundColor="rgb(75, 125, 252)";
 	oneChoose.style.color="#FFF";
+	typeChange=1;
 	 $(".panel").html(`
 		<div class="panel-heading" style="background-color: rgb(75, 125, 252); border-top: none; font-size: 20px; color: #FFF;">
 		单选题
 		</div>
 		<div class="panel-body">
-		<div class="inputText" style="margin-left: -4px;">
-		    <div class="classFont">题号</div>
-		    <input type="text" class="input" id="bankProValue" readonly="readonly">
-		</div>
-		</br>
 		<div>
 			<div>请输入题目内容：</div>
 			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
@@ -98,17 +94,13 @@ function updateBtn(){
  	var moreChoose=document.getElementById("moreChoose");
  	moreChoose.style.backgroundColor="rgb(75, 125, 252)";
 	moreChoose.style.color="#FFF";
+	typeChange=2;
  	 $(".panel").html(`
  		
  		<div class="panel-heading" style="background-color: rgb(75, 125, 252); border-top: none; font-size: 20px; color: #FFF;">
  		多选题
  		</div>
  		<div class="panel-body">
-		<div class="inputText" style="margin-left: -4px;">
-		    <div class="classFont">题号</div>
-		    <input type="text" class="input" id="bankProValue" readonly="readonly">
-		</div>
-		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
@@ -140,17 +132,12 @@ function updateBtn(){
  	var blank=document.getElementById("blank");
  	blank.style.backgroundColor="rgb(75, 125, 252)";
 	blank.style.color="#FFF";
-
+	typeChange=3;
  	 $(".panel").html(`
  		<div class="panel-heading" style="background-color: rgb(75, 125, 252); border-top: none; font-size: 20px; color: #FFF;">
  		填空题
  		</div>
  		<div class="panel-body">
-		<div class="inputText" style="margin-left: -4px;">
-		    <div class="classFont">题号</div>
-		    <input type="text" class="input" id="bankProValue" readonly="readonly">
-		</div>
-		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
@@ -165,35 +152,30 @@ function updateBtn(){
 
 
  $("#yesOrNo").click(function(){
-	 updateBtn();
+	updateBtn();
  	var yesOrNo=document.getElementById("yesOrNo");
  	yesOrNo.style.backgroundColor="rgb(75, 125, 252)";
 	yesOrNo.style.color="#FFF";
+	typeChange=4;
  	 $(".panel").html(`
  		<div class="panel-heading" style="background-color: rgb(75, 125, 252); border-top: none; font-size: 20px; color: #FFF;">
  		判断题
  		</div>
  		<div class="panel-body">
-		<div class="inputText" style="margin-left: -4px;">
-		    <div class="classFont">题号</div>
-		    <input type="text" class="input" id="bankProValue" readonly="readonly">
-		</div>
-		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
  		</div>
 		<div>
-		请选择答案：<input id="yesChoose" type="radio"  name="yesChoose">&nbsp是
+		请选择答案：<input id="yesChoose" type="radio"  name="yesChoose" value="yes">&nbsp是
 		&nbsp&nbsp&nbsp
-		<input id="noChoose" type="radio"  name="yesChoose">&nbsp否
+		<input id="noChoose" type="radio"  name="yesChoose" value="no">&nbsp否
 		</div>
  		</div>
  		`);
  })
 
 function addChoose(){
-	 console.log("略略略");
 	let chooseText=document.getElementById("chooseText").value;
 	let answer= document.getElementById("yesAnswer").checked;
 	let yesAnswer;
@@ -212,7 +194,47 @@ function addChoose(){
 	moreChoose++;
  }
  function selectChoose(e){
-	 
+	let problemId = e.parentNode.parentNode.children[3].innerText.trim();
+	console.log("problemId:"+problemId);
+ }
+ function addChooseInf(){
+	if(typeChange==1){
+		
+		//判断作为答案的选项
+		var choose= document.getElementsByName("choose");
+		 for (var i = 0; i < choose.length; i++) {
+		    if (choose[i].checked) {
+		      console.log(choose[i].value);
+		    }
+		}
+		updatePanel();
+		$('#myModal').modal('hide');
+	}else if(typeChange==2){
+		
+		updatePanel();
+		$('#myModal').modal('hide');
+	}else if(typeChange==3){
+		
+		updatePanel();
+		$('#myModal').modal('hide');
+	}else if(typeChange==4){
+		
+		updatePanel();
+		$('#myModal').modal('hide');
+	}else{
+		alert("请选择题型！");
+	}
+ }
+ function updatePanel(){
+	 document.getElementById("oneChoose").checked=false;
+	 document.getElementById("moreChoose").checked=false;
+	 document.getElementById("blank").checked=false;
+	 document.getElementById("yesOrNo").checked=false;
+	 updateBtn();
+	 $(".panel").html(
+	  		`<div class="panel-heading" style="background-color: 
+			rgb(255,255,255); border-top: none; border-bottom: none; border-left: none;
+			border-right: none;  height:0px; width: 0px ; "></div>`);
  }
  
  
