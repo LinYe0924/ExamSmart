@@ -177,13 +177,19 @@ function updateBtn(){
  })
 
 function addChoose(){
-	let chooseText=document.getElementById("chooseText").value;
+	let chooseText=$("#chooseText").val()
 	let answer= document.getElementById("yesAnswer").checked;
 	let yesAnswer;
+	chooseText=chooseText.trim();
 	if(answer){
 		yesAnswer="是";
 	}else{
 		yesAnswer="否";
+	}
+	
+	if(chooseText.length==0){
+		alert("请输入选项！！！");
+		return;
 	}
 	document.getElementById("chooseTable").innerHTML+=
 	`<tr>
