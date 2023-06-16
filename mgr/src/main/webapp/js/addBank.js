@@ -1,4 +1,4 @@
-
+ let typeChange=0;
  let moreChoose=1;
  let userName=localStorage.getItem("userName");
 $("#userNameValue").val(userName);
@@ -43,6 +43,7 @@ function updateBtn(){
 	yesOrNo.style.color="#000";
 }
  $("#oneChoose").click(function(){
+	 typeChange=1;
 	 updateBtn();
 	var oneChoose=document.getElementById("oneChoose");
 	oneChoose.style.backgroundColor="rgb(75, 125, 252)";
@@ -52,47 +53,43 @@ function updateBtn(){
 		单选题
 		</div>
 		<div class="panel-body">
-		<div class="inputText" style="margin-left: -4px;">
-		    <div class="classFont">题号</div>
-		    <input type="text" class="input" id="bankProValue" readonly="readonly">
-		</div>
-		</br>
 		<div>
 			<div>请输入题目内容：</div>
-			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
+			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容" id="oneChooseText"></textarea></div>
 		</div>
 		<div style="font-size: 15px;" class="choose">
 			选项一：是否是答案：<input type="radio" class="samllChoose" name="choose" value="1">
 			<br />
 			<div>
-				<textarea class="form-control" rows="2" placeholder="请输入选项内容"></textarea>
+				<textarea class="form-control" rows="2" placeholder="请输入选项内容" id="chooseAValue"></textarea>
 			</div>
 		</div>
 		<div style="font-size: 15px;" class="choose">
 			选项二：是否是答案：<input type="radio" class="samllChoose" name="choose" value="2">
 			<br />
 			<div>
-				<textarea class="form-control" rows="2" placeholder="请输入选项内容"></textarea>
+				<textarea class="form-control" rows="2" placeholder="请输入选项内容" id="chooseBValue"></textarea>
 			</div>
 		</div>
 		<div style="font-size: 15px;" class="choose">
 			选项三：是否是答案：<input type="radio" class="samllChoose" name="choose" value="3">
 			<br />
 			<div>
-				<textarea class="form-control" rows="2" placeholder="请输入选项内容"></textarea>
+				<textarea class="form-control" rows="2" placeholder="请输入选项内容" id="chooseCValue"></textarea>
 			</div>
 		</div>
 		<div style="font-size: 15px;" class="choose">
 			选项四：是否是答案：<input type="radio" class="samllChoose" name="choose" value="4">
 			<br />
 			<div>
-				<textarea class="form-control" rows="2" placeholder="请输入选项内容"></textarea>
+				<textarea class="form-control" rows="2" placeholder="请输入选项内容" id="chooseDValue"></textarea>
 			</div>
 		</div>
 		</div>
 		`);
  })
  $("#moreChoose").click(function(){
+	 typeChange=2;
 	 updateBtn();
 	 moreChoose=1;
  	var moreChoose=document.getElementById("moreChoose");
@@ -104,11 +101,6 @@ function updateBtn(){
  		多选题
  		</div>
  		<div class="panel-body">
-		<div class="inputText" style="margin-left: -4px;">
-		    <div class="classFont">题号</div>
-		    <input type="text" class="input" id="bankProValue" readonly="readonly">
-		</div>
-		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
@@ -136,6 +128,7 @@ function updateBtn(){
  		`);
  })
  $("#blank").click(function(){
+	 typeChange=3;
 	 updateBtn();
  	var blank=document.getElementById("blank");
  	blank.style.backgroundColor="rgb(75, 125, 252)";
@@ -146,11 +139,6 @@ function updateBtn(){
  		填空题
  		</div>
  		<div class="panel-body">
-		<div class="inputText" style="margin-left: -4px;">
-		    <div class="classFont">题号</div>
-		    <input type="text" class="input" id="bankProValue" readonly="readonly">
-		</div>
-		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
@@ -165,6 +153,7 @@ function updateBtn(){
 
 
  $("#yesOrNo").click(function(){
+	 typeChange=4;
 	 updateBtn();
  	var yesOrNo=document.getElementById("yesOrNo");
  	yesOrNo.style.backgroundColor="rgb(75, 125, 252)";
@@ -174,11 +163,6 @@ function updateBtn(){
  		判断题
  		</div>
  		<div class="panel-body">
-		<div class="inputText" style="margin-left: -4px;">
-		    <div class="classFont">题号</div>
-		    <input type="text" class="input" id="bankProValue" readonly="readonly">
-		</div>
-		</br>
  		<div>
  			<div>请输入题目内容：</div>
  			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
@@ -193,7 +177,6 @@ function updateBtn(){
  })
 
 function addChoose(){
-	 console.log("略略略");
 	let chooseText=document.getElementById("chooseText").value;
 	let answer= document.getElementById("yesAnswer").checked;
 	let yesAnswer;
@@ -213,6 +196,74 @@ function addChoose(){
  }
  function selectChoose(e){
 	 
+ }
+ function addProblem(){
+	let projectId= $("#projectId").val();
+	var problemText=$("#oneChooseText").val();
+	var chooseA=$("#chooseAValue").val();
+	var chooseB=$("#chooseBValue").val();
+	var chooseC=$("#chooseCValue").val();
+	var chooseD=$("#chooseDValue").val();
+	problemText=problemText.trim();
+	chooseA= chooseA.trim();
+	chooseB= chooseB.trim();
+	chooseC= chooseC.trim();
+	chooseD= chooseD.trim();
+	if(problemText.length==0){
+		alert("请输入题目内容");
+		return;
+	}
+	if(chooseA.length==0||chooseB.length==0||chooseC.length==0||chooseD.length==0){
+		alert("请将选项输入完整！");
+		return;
+	}
+	let answer=0;
+	if(typeChange==1){
+		 var radios = document.getElementsByName("choose");
+		  for (var i = 0; i < radios.length; i++) {
+		    if (radios[i].checked) {
+				answer=radios[i].value;
+		    }
+		  }
+	if(answer==0){
+		alert("请选择一个答案！");
+		return;
+	}
+	$.ajax({
+	    url:'addProblem',
+	    type:'GET',
+	    data:{
+	        'projectId' : projectId,
+			'problemTypeId' : "1",
+			'problemText' : problemText,
+	        'answer' : answer,
+			'chooseA' : chooseA,
+			'chooseB' : chooseB,
+			'chooseC' : chooseC,
+			'chooseD' : chooseD
+	    },
+	    dataType:'JSON',
+	    async:true,
+		success:function(reps){
+			console.log("添加成功");
+	    },
+	    error:function (reps){
+	        document.write(reps.responseText)
+	    },
+	})
+		typeChange=0;
+		updateBtn();
+		$(".panel").html(`
+		<div class="panel-heading" style="background-color: #FFF;"></div>`);
+	}else if(typeChange==2){
+		
+	}else if(typeChange==3){
+		
+	}else if(typeChange==4){
+		
+	}else{
+		alert("请选择题型！！！");
+	}
  }
  
  

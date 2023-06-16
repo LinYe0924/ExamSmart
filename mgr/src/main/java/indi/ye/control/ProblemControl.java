@@ -16,16 +16,19 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RestController
 public class ProblemControl {
+
     @PostMapping("/addProblem")
     public JsonDto addProblem(HttpServletRequest req){
         int typeId= Integer.parseInt(req.getParameter("typeId"));
         String problemText = req.getParameter("problemText");
         String answer = req.getParameter("answer");
+        int projectId = Integer.parseInt(req.getParameter("projectId"));
         if(typeId==1){
             String chooseA = req.getParameter("chooseA");
             String chooseB = req.getParameter("chooseB");
             String chooseC = req.getParameter("chooseC");
             String chooseD = req.getParameter("chooseD");
+
         }else if(typeId==2){
 
         }else if (typeId==4){
