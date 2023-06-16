@@ -198,6 +198,7 @@ function addChoose(){
 	 
  }
  function addProblem(){
+	 let userId=localStorage.getItem("userId");
 	let projectId= $("#projectId").val();
 	var problemText=$("#oneChooseText").val();
 	var chooseA=$("#chooseAValue").val();
@@ -231,12 +232,13 @@ function addChoose(){
 	}
 	$.ajax({
 	    url:'addProblem',
-	    type:'GET',
+	    type:'POST',
 	    data:{
 	        'projectId' : projectId,
 			'problemTypeId' : "1",
 			'problemText' : problemText,
 	        'answer' : answer,
+			'userId' : userId,
 			'chooseA' : chooseA,
 			'chooseB' : chooseB,
 			'chooseC' : chooseC,

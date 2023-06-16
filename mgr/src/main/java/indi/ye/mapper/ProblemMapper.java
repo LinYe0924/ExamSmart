@@ -1,5 +1,7 @@
 package indi.ye.mapper;
 
+import indi.ye.pojo.ProblemPojo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,5 +12,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface ProblemMapper {
-    public void addOneChooseProblem(int typeId,String problemText,String answer);
+    public void addOneChooseProblem(@Param("problemPojo") ProblemPojo problemPojo);
+    public void addOneChoose(@Param("letter") String choose_letter,@Param("text") String choose_text,@Param("problem_id")int problem_id);
 }

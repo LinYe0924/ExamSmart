@@ -22,25 +22,36 @@ public class ProblemControl {
     ProblemService problemService;
     @PostMapping("/addProblem")
     public JsonDto addProblem(HttpServletRequest req){
-        int typeId= Integer.parseInt(req.getParameter("typeId"));
+        int typeId= Integer.parseInt(req.getParameter("problemTypeId"));
         String problemText = req.getParameter("problemText");
         String answer = req.getParameter("answer");
         int projectId = Integer.parseInt(req.getParameter("projectId"));
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        JsonDto jsonDto=new JsonDto();
         if(typeId==1){
+            int ans= Integer.parseInt(answer);
+            int charFlag = 64;
+            char charIndex = 0;
+            for(int i=1;i<5;i++){
+                charFlag++;
+                if(ans==i){
+                    charIndex = (char) charFlag;
+                }
+            }
+            answer= String.valueOf(charIndex);
             String chooseA = req.getParameter("chooseA");
             String chooseB = req.getParameter("chooseB");
             String chooseC = req.getParameter("chooseC");
             String chooseD = req.getParameter("chooseD");
-            boolean addOneChooseProblemRes = problemService.addOneChooseProblem(typeId, projectId, problemText, answer, chooseA, chooseB, chooseC, chooseD);
-            if(addOneChooseProblemRes){
+            boolean addOneChooseProblemRes = problemService.addOneChooseProblem(typeId, projectId, problemText, answer, userId,chooseA, chooseB, chooseC, chooseD);
+            jsonDto.getData().put("res",addOneChooseProblemRes);
 
-            }
         }else if(typeId==2){
 
         }else if (typeId==4){
 
         }
-        JsonDto jsonDto=new JsonDto();
+
         return jsonDto;
     }
 }

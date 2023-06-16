@@ -1,8 +1,12 @@
 package indi.ye.service.impl;
 
+import indi.ye.mapper.ProblemMapper;
+import indi.ye.pojo.ProblemPojo;
 import indi.ye.service.ProblemService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName: ProblemServiceImpl
@@ -13,9 +17,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Transactional(rollbackFor = Exception.class)//出现异常就回滚
 public class ProblemServiceImpl implements ProblemService {
+    @Resource
+    ProblemMapper problemMapper;
     @Override
-    public boolean addOneChooseProblem(int typeId,int projectId,String problemText,String answer,String chooseA,String chooseB,String chooseC,String chooseD) {
+    public boolean addOneChooseProblem(int typeId,int projectId,String problemText,String answer,int userId,String chooseA,String chooseB,String chooseC,String chooseD) {
+        ProblemPojo problemPojo=new ProblemPojo(problemText,answer,typeId,projectId,userId);
+        problemMapper.addOneChooseProblem(problemPojo);
+        int problemId = problemPojo.getProblem_id();
 
-        return false;
+        problemMapper.addOneChoose("A",chooseA,problemId);
+        problemMapper.addOneChoose("B",chooseB,problemId);
+        problemMapper.addOneChoose("C",chooseC,problemId);
+        problemMapper.addOneChoose("D",chooseD,problemId);
+        return true;
     }
 }

@@ -11,7 +11,7 @@ import java.util.Date;
  * @Author: ye
  * @Date: 2023/6/8 16:18
  */
-@Component
+
 @Data
 public class UserManagePojo {
     private int user_id;

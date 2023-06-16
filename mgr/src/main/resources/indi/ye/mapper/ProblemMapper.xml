@@ -3,8 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indi.ye.mapper.ProblemMapper">
-    <select id="addOneChooseProblem" resultType="indi.ye.pojo.UserPojo">
-        Select user_id,user_name,user_pwd,role_id,user_state from user_inf where user_tel = #{user_tel} and user_pwd = #{user_pwd};
-    </select>
-
+    <insert id="addOneChooseProblem" parameterType="indi.ye.pojo.ProblemPojo"
+            useGeneratedKeys="true" keyProperty="problem_id">
+        INSERT INTO problem_inf (problem_text,problem_answer,type_id,project_id,user_id) VALUES(#{problemPojo.problem_text},#{problemPojo.problem_answer},#{problemPojo.type_id},#{problemPojo.project_id},#{problemPojo.user_id});
+    </insert>
+    <insert id="addOneChoose">
+<!--        INSERT INTO choose_inf (choose_letter,choose_text,problem_id) VALUES('A','李白',3)-->
+        INSERT INTO choose_inf (choose_letter,choose_text,problem_id) VALUES(#{letter},#{text},#{problem_id});
+    </insert>
 </mapper>

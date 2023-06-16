@@ -10,12 +10,23 @@ import org.springframework.stereotype.Component;
  * @Date: 2023/6/16 9:18
  */
 @Data
-@Component
 public class ProblemPojo {
-    int problem_id;
-    String problem_text;
-    String problem_answer;
-    int type_id;
-    int project_id;
-    int user_id;
+   private int problem_id;
+    private String problem_text;
+    private String problem_answer;
+    private int type_id;
+    private int project_id;
+    private  int user_id;
+
+
+    public ProblemPojo() {
+    }
+
+    public ProblemPojo(String problem_text, String problem_answer, int type_id, int project_id, int user_id) {
+        this.problem_text = problem_text;
+        this.problem_answer = problem_answer;
+        this.type_id = type_id;
+        this.project_id = project_id;
+        this.user_id = user_id;
+    }
 }

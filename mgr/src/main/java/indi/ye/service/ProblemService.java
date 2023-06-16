@@ -8,5 +8,5 @@ package indi.ye.service;
  */
 
 public interface ProblemService {
-public boolean addOneChooseProblem(int typeId,int projectId,String problemText,String answer,String chooseA,String chooseB,String chooseC,String chooseD);
+public boolean addOneChooseProblem(int typeId,int projectId,String problemText,String answer,int userId,String chooseA,String chooseB,String chooseC,String chooseD);
 }
