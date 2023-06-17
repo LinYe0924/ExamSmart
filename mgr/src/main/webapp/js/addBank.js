@@ -103,7 +103,7 @@ function updateBtn(){
  		<div class="panel-body">
  		<div>
  			<div>请输入题目内容：</div>
- 			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
+ 			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容" id="moreChooseText" ></textarea></div>
  		</div>
 		<div>
 		<div>请输入选项内容：</div>
@@ -115,6 +115,7 @@ function updateBtn(){
 		<input id="noAnswer" type="radio"  name="yesAnswer">&nbsp否
 		</div>
  		<button class="btn btn-info " type="button" onclick="addChoose()" id="addChooseBtn">添加选项</button>
+		<button class="btn btn-info " style="background-color: coral;" type="button" onclick="delChoose()" id="delChooseBtn">删除选项</button>
 		  <table class="informationTable" id="chooseTable" style="border-collapse: collapse;">
  		<colgroup>
 			<col style="width: 15%;">
@@ -179,17 +180,40 @@ function updateBtn(){
 function addChoose(){
 	let chooseText=$("#chooseText").val()
 	let answer= document.getElementById("yesAnswer").checked;
+	let answerTwo=document.getElementById("noAnswer").checked;
 	let yesAnswer;
 	chooseText=chooseText.trim();
 	if(answer){
 		yesAnswer="是";
 	}else{
-		yesAnswer="否";
+		if(answerTwo){
+			yesAnswer="否";
+		}else{
+			alert("请选择该选项是否为答案！");
+			return;
+		}
 	}
 	
 	if(chooseText.length==0){
-		alert("请输入选项！！！");
+		alert("请输入选项内容！！！");
 		return;
+	}
+	let count=0;
+	// 遍历每一行
+	$("#chooseTable tr").each(function() {
+	  // 获取第二列的单元格
+	  var cell = $(this).find("td:eq(1)");
+	  // 打印单元格的文本内容
+	  console.log(cell.text());
+	  if(cell.text().trim()==chooseText){
+		  count++;
+	  }
+	});
+	if(count==0){
+			  
+	}else{
+			  alert("选项已被添加过了！");
+			  return;
 	}
 	document.getElementById("chooseTable").innerHTML+=
 	`<tr>
@@ -204,28 +228,29 @@ function addChoose(){
 	 
  }
  function addProblem(){
-	 let userId=localStorage.getItem("userId");
-	let projectId= $("#projectId").val();
-	var problemText=$("#oneChooseText").val();
-	var chooseA=$("#chooseAValue").val();
-	var chooseB=$("#chooseBValue").val();
-	var chooseC=$("#chooseCValue").val();
-	var chooseD=$("#chooseDValue").val();
-	problemText=problemText.trim();
-	chooseA= chooseA.trim();
-	chooseB= chooseB.trim();
-	chooseC= chooseC.trim();
-	chooseD= chooseD.trim();
-	if(problemText.length==0){
-		alert("请输入题目内容");
-		return;
-	}
-	if(chooseA.length==0||chooseB.length==0||chooseC.length==0||chooseD.length==0){
-		alert("请将选项输入完整！");
-		return;
-	}
-	let answer=0;
+	
 	if(typeChange==1){
+		let userId=localStorage.getItem("userId");
+		let projectId= $("#projectId").val();
+		var problemText=$("#oneChooseText").val();
+		var chooseA=$("#chooseAValue").val();
+		var chooseB=$("#chooseBValue").val();
+		var chooseC=$("#chooseCValue").val();
+		var chooseD=$("#chooseDValue").val();
+		problemText=problemText.trim();
+		chooseA= chooseA.trim();
+		chooseB= chooseB.trim();
+		chooseC= chooseC.trim();
+		chooseD= chooseD.trim();
+		if(problemText.length==0){
+			alert("请输入题目内容");
+			return;
+		}
+		if(chooseA.length==0||chooseB.length==0||chooseC.length==0||chooseD.length==0){
+			alert("请将选项输入完整！");
+			return;
+		}
+		let answer=0;
 		 var radios = document.getElementsByName("choose");
 		  for (var i = 0; i < radios.length; i++) {
 		    if (radios[i].checked) {
@@ -236,6 +261,16 @@ function addChoose(){
 		alert("请选择一个答案！");
 		return;
 	}
+	const arr = [chooseA, chooseB, chooseC, chooseD]; //定义一个数组
+	const hasDuplicate = arr.some (function (item) { //使用some方法遍历数组
+	  return arr.indexOf (item) !== arr.lastIndexOf (item); //比较索引是否相等
+	});
+	if(hasDuplicate){
+		console.log (hasDuplicate); //true，表示数组中有重复的值
+		alert("有选项重复了，请修改！");
+		return;
+	}
+	
 	$.ajax({
 	    url:'addProblem',
 	    type:'POST',
@@ -264,6 +299,62 @@ function addChoose(){
 		$(".panel").html(`
 		<div class="panel-heading" style="background-color: #FFF;"></div>`);
 	}else if(typeChange==2){
+		var moreProblemText=$("#moreChooseText").val();
+		console.log("moreProblemText："+moreProblemText);
+		moreProblemText=moreProblemText.trim();
+		if(moreProblemText.length==0){
+			alert("请输入题目内容");
+			return;
+		}
+		const table = document.getElementById ("chooseTable"); //获取表格元素
+		const rowCount = table.rows.length; //获取表格中的行数
+		console.log("表格行数："+rowCount);
+		if(rowCount<5){
+			alert("选项不足，请添加选项！");
+			return;
+		}
+		let count=0;
+		var chooseArray = new Array();
+		// 遍历每一行
+		$("#chooseTable tr").each(function() {
+		  // 获取第二列的单元格
+		  var cell1 = $(this).find("td:eq(0)");
+		  var cell2 = $(this).find("td:eq(1)");
+		  var cell3 = $(this).find("td:eq(2)");
+		  // 打印单元格的文本内容
+		  console.log(cell3.text());
+		  if(cell3.text()=="是"){
+			  count++;
+		  }
+		  var obj = {chooseId: cell1, chooseText: cell2,yeNoAnswer:cell3};
+		  chooseArray.push(obj);
+		});
+		if(count<2){
+			alert("答案不足，至少2个，请修改！");
+			chooseArray.length = 0;
+			return;
+		}
+		
+		$.ajax({
+		    url:'addProblem',
+		    type:'POST',
+		    data:{
+		        'projectId' : projectId,
+				'problemTypeId' : "2",
+				'problemText' : moreProblemText,
+		        'answer' : answer,
+				'userId' : userId,
+				'choose' : chooseArray
+		    },
+		    dataType:'JSON',
+		    async:true,
+			success:function(reps){
+				console.log("添加成功");
+		    },
+		    error:function (reps){
+		        document.write(reps.responseText)
+		    },
+		})
 		
 	}else if(typeChange==3){
 		
@@ -272,6 +363,12 @@ function addChoose(){
 	}else{
 		alert("请选择题型！！！");
 	}
+ }
+ function delChoose(){
+	 const table = document.getElementById ("chooseTable"); //获取表格元素
+	 const rowCount = table.rows.length; //获取表格中的行数
+	 table.deleteRow (rowCount - 1); //删除最后一行，索引为行数减一
+	 moreChoose--;
  }
  
  
