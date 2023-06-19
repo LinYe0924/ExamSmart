@@ -142,11 +142,11 @@ function updateBtn(){
  		<div class="panel-body">
  		<div>
  			<div>请输入题目内容：</div>
- 			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
+ 			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容" id="blankText"></textarea></div>
  		</div>
  		<div>
  			<div>请输入答案：</div>
- 			<div><textarea class="form-control" rows="3" placeholder="请输入答案"></textarea></div>
+ 			<div><textarea class="form-control" rows="3" placeholder="请输入答案" id="blankAnsText"></textarea></div>
  		</div>
  		</div>
  		`);
@@ -166,7 +166,7 @@ function updateBtn(){
  		<div class="panel-body">
  		<div>
  			<div>请输入题目内容：</div>
- 			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容"></textarea></div>
+ 			<div><textarea class="form-control" rows="3" placeholder="请输入题目内容" id="yesOrNoText"></textarea></div>
  		</div>
 		<div>
 		请选择答案：<input id="yesChoose" type="radio"  name="yesChoose">&nbsp是
@@ -212,8 +212,8 @@ function addChoose(){
 	if(count==0){
 			  
 	}else{
-			  alert("选项已被添加过了！");
-			  return;
+	  alert("选项已被添加过了！");
+	  return;
 	}
 	document.getElementById("chooseTable").innerHTML+=
 	`<tr>
@@ -228,10 +228,9 @@ function addChoose(){
 	 
  }
  function addProblem(){
-	
+	let userId=localStorage.getItem("userId");
+	let projectId= $("#projectId").val();
 	if(typeChange==1){
-		let userId=localStorage.getItem("userId");
-		let projectId= $("#projectId").val();
 		var problemText=$("#oneChooseText").val();
 		var chooseA=$("#chooseAValue").val();
 		var chooseB=$("#chooseBValue").val();
@@ -288,7 +287,10 @@ function addChoose(){
 	    dataType:'JSON',
 	    async:true,
 		success:function(reps){
-			console.log("添加成功");
+			$('#myModal').modal('hide');
+			alert("添加成功!");
+			let currentPage = document.getElementById("currentPage").innerText;
+			updateTable(currentPage);
 	    },
 	    error:function (reps){
 	        document.write(reps.responseText)
@@ -322,11 +324,12 @@ function addChoose(){
 		  var cell2 = $(this).find("td:eq(1)");
 		  var cell3 = $(this).find("td:eq(2)");
 		  // 打印单元格的文本内容
-		  console.log(cell3.text());
+		  console.log("是否？："+cell3.text());
+		  console.log("滴滴");
 		  if(cell3.text()=="是"){
 			  count++;
 		  }
-		  var obj = {chooseId: cell1, chooseText: cell2,yeNoAnswer:cell3};
+		  var obj = {chooseId: cell1.text(), chooseText: cell2.text(),yeNoAnswer:cell3.text()};
 		  chooseArray.push(obj);
 		});
 		if(count<2){
@@ -334,7 +337,11 @@ function addChoose(){
 			chooseArray.length = 0;
 			return;
 		}
-		
+		var chooseJsson= JSON.stringify(chooseArray);
+		console.log("集合：");
+		console.log(chooseArray);
+		console.log("chooseJsson:"+chooseJsson);
+		// return;
 		$.ajax({
 		    url:'addProblem',
 		    type:'POST',
@@ -342,24 +349,113 @@ function addChoose(){
 		        'projectId' : projectId,
 				'problemTypeId' : "2",
 				'problemText' : moreProblemText,
-		        'answer' : answer,
 				'userId' : userId,
-				'choose' : chooseArray
+				'choose' : chooseJsson
 		    },
 		    dataType:'JSON',
 		    async:true,
 			success:function(reps){
-				console.log("添加成功");
+				$('#myModal').modal('hide');
+				alert("添加成功!");
+				let currentPage = document.getElementById("currentPage").innerText;
+				updateTable(currentPage);
 		    },
 		    error:function (reps){
 		        document.write(reps.responseText)
 		    },
 		})
-		
+		typeChange=0;
+		updateBtn();
+		$(".panel").html(`
+		<div class="panel-heading" style="background-color: #FFF;"></div>`);
 	}else if(typeChange==3){
-		
+		var blankText=$("#blankText").val();
+		console.log("blankText："+blankText);
+		blankText=blankText.trim();
+		var blankAnsText=$("#blankAnsText").val();
+		console.log("blankAnsText："+blankAnsText);
+		blankAnsText=blankAnsText.trim();
+		if(blankText.length==0){
+			alert("请输入题目内容！");
+			return;
+		}
+		if(blankAnsText.length==0){
+			alert("请输入答案内容！");
+			return;
+		}
+		$.ajax({
+		    url:'addProblem',
+		    type:'POST',
+		    data:{
+		        'projectId' : projectId,
+				'problemTypeId' : "3",
+				'problemText' : blankText,
+				'userId' : userId,
+				'answer' : blankAnsText
+		    },
+		    dataType:'JSON',
+		    async:true,
+			success:function(reps){
+				$('#myModal').modal('hide');
+				alert("添加成功!");
+				let currentPage = document.getElementById("currentPage").innerText;
+				updateTable(currentPage);
+		    },
+		    error:function (reps){
+		        document.write(reps.responseText)
+		    },
+		})
+		typeChange=0;
+		updateBtn();
+		$(".panel").html(`
+		<div class="panel-heading" style="background-color: #FFF;"></div>`);
 	}else if(typeChange==4){
-		
+		var yesOrNoText=$("#yesOrNoText").val();
+		console.log("yesOrNoText："+yesOrNoText);
+		yesOrNoText=yesOrNoText.trim();
+		if(yesOrNoText.length==0){
+			alert("请输入题目内容！");
+			return;
+		}
+		let answer= document.getElementById("yesChoose").checked;
+		let answerTwo=document.getElementById("noChoose").checked;
+		let yesAnswer;
+		if(answer){
+			yesAnswer="是";
+		}else{
+			if(answerTwo){
+				yesAnswer="否";
+			}else{
+				alert("请选择答案！");
+				return;
+			}
+		}
+		$.ajax({
+		    url:'addProblem',
+		    type:'POST',
+		    data:{
+		        'projectId' : projectId,
+				'problemTypeId' : "4",
+				'problemText' : yesOrNoText,
+				'userId' : userId,
+				'answer' : yesAnswer
+		    },
+		    dataType:'JSON',
+		    async:true,
+			success:function(reps){
+				$('#myModal').modal('hide');
+				alert("添加成功!");
+				let currentPage = document.getElementById("currentPage").innerText;
+				updateTable(currentPage);
+		    },
+		    error:function (reps){
+		        document.write(reps.responseText)
+		    },
+		})
+		typeChange=0;
+		updateBtn();
+		$(".panel").html(`
+		<div class="panel-heading" style="background-color: #FFF;"></div>`);
 	}else{
 		alert("请选择题型！！！");
 	}
@@ -370,7 +466,102 @@ function addChoose(){
 	 table.deleteRow (rowCount - 1); //删除最后一行，索引为行数减一
 	 moreChoose--;
  }
- 
+function updateTable(page){
+	
+	$.ajax({
+	    url:'updateProblemTable',
+	    type:'POST',
+	    data: {
+	        page: page,
+	    },
+	    dataType:'JSON',
+	    async:true,
+		success:function(reps){
+			$("#sumPage").text(reps.data.maxPage);
+			document.getElementById("table").innerHTML=`<table class="informationTable" id="table" style="border-collapse: collapse;">
+		              <colgroup>
+		                <col style="width: 5%;">
+		                <col style="width: 5%;">
+						<col style="width: 30%;">
+						<col style="width: 10%;">
+						<col style="width: 15%;">
+						<col style="width: 10%;">
+						<col style="width: 5%;">
+						<col style="width: 5%;">
+						<col style="width: 15%;">
+		              </colgroup>
+					<tr style="background-color: rgb(229,229,229);">
+		               <td><input type="checkbox" id="changeAll"  name="choose" value="changeAll">全选</td>
+					   <td>题目编号</td>
+		               <td>题干</td>
+					   <td>题型</td>
+					   <td>选项</td>
+		               <td>答案</td>
+						<td>上传者</td> 
+						<td>所属学科</td> 
+						<td>操作</td>
+		            </tr>`;
+					for(let i = 0; i < reps.data.list.length; i++){
+						let choose =reps.data.list[i].type_name == "单选题"? '<button class="selectChoose" style="background-color: rgb(168,131,68); width: 70px;" onclick="selectChoose(this)">查看选项</button>'
+						: (reps.data.list[i].type_name == "多选题"? '<button class="selectChoose" style="background-color: rgb(168,131,68); width: 70px;" onclick="selectChoose(this)">查看选项</button>' : '无');
+						if(reps.data.list[i].problem_state==1){
+						document.getElementById("table").innerHTML+=`<tr>
+							<td><input type="checkbox" class="samllChoose" name="choose" value="${i+1}"></td>
+						    <td>${reps.data.list[i].problem_id}</td>
+						    <td>${reps.data.list[i].problem_text}</td>
+						    <td>${reps.data.list[i].type_name}</td>
+						    <td>${choose}</td>
+							<td>${reps.data.list[i].problem_answer}</td>
+							<td>${reps.data.list[i].user_name}</td>
+							<td>${reps.data.list[i].project_name}</td>
+						    <td><button onclick="setUser(this)" class="altBtn" style="background-color: rgb(75,125,252);">修改</button>
+						 <button onclick="delUser(this)" class="altBtn" style="background-color: rgb(221,110,78)">禁用</button></td>
+							</tr>`
+							}else{
+								document.getElementById("table").innerHTML+=`<tr>
+									<td><input type="checkbox" class="samllChoose" name="choose" value="${i+1}"></td>
+									<td>${reps.data.list[i].problem_id}</td>
+									<td>${reps.data.list[i].problem_text}</td>
+									<td>${reps.data.list[i].type_name}</td>
+									<td>${choose}</td>
+									<td>${reps.data.list[i].problem_answer}</td>
+									<td>${reps.data.list[i].user_name}</td>
+									<td>${reps.data.list[i].project_name}</td>
+								    <td><button onclick="setUser(this)" class="altBtn" style="background-color: rgb(75,125,252);">修改</button>
+								 <button onclick="delUser(this)" class="altBtn" style="background-color: rgb(0, 100, 48)">恢复</button></td>
+									</tr>`
+							}
+					}
+					document.getElementById("table").innerHTML+=`</table>`;
+	    },
+	    error:function (reps){
+	        document.write(reps.responseText)
+	    },
+	})
+ }
+
+ updateTable(1);
+ document.getElementById("upPage").onclick = function () {
+     let currentPage = document.getElementById("currentPage").innerText;
+     if (currentPage > 1) {
+         currentPage--;
+         updateTable(currentPage);
+         document.getElementById("currentPage").innerText = currentPage;
+     } else {
+         alert("已经是第一页啦！");
+     }
+ }
+ document.getElementById("downPage").onclick = function () {
+     let currentPage = document.getElementById("currentPage").innerText;
+     let sumPage = document.getElementById("sumPage").innerText;
+     if (currentPage < sumPage) {
+         currentPage++;
+         updateTable(currentPage);
+         document.getElementById("currentPage").innerText = currentPage;
+     } else {
+         alert("已经是最后一页啦！");
+     }
+ }
  
 
 

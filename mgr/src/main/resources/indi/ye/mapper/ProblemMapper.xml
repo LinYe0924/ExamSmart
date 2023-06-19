@@ -3,12 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indi.ye.mapper.ProblemMapper">
-    <insert id="addOneChooseProblem" parameterType="indi.ye.pojo.ProblemPojo"
+    <insert id="addProblem" parameterType="indi.ye.pojo.ProblemPojo"
             useGeneratedKeys="true" keyProperty="problem_id">
         INSERT INTO problem_inf (problem_text,problem_answer,type_id,project_id,user_id) VALUES(#{problemPojo.problem_text},#{problemPojo.problem_answer},#{problemPojo.type_id},#{problemPojo.project_id},#{problemPojo.user_id});
     </insert>
-    <insert id="addOneChoose">
+    <insert id="addChoose">
 <!--        INSERT INTO choose_inf (choose_letter,choose_text,problem_id) VALUES('A','李白',3)-->
         INSERT INTO choose_inf (choose_letter,choose_text,problem_id) VALUES(#{letter},#{text},#{problem_id});
     </insert>
+    <select id="selectProblem" resultType="indi.ye.pojo.ProblemPojo">
+        Select problem_inf.problem_id,problem_inf.problem_text,problem_inf.problem_answer,problem_inf.problem_state,type_inf.type_name,project_inf.project_name,user_inf.user_name
+        FROM problem_inf
+        LEFT JOIN type_inf ON problem_inf.type_id=type_inf.type_id
+        LEFT JOIN project_inf ON problem_inf.project_id=project_inf.project_id
+        LEFT JOIN user_inf ON problem_inf.user_id=user_inf.user_id LIMIT #{page},5 ;
+    </select>
+    <select id="selectProblemSize" resultType="Integer">
+        Select COUNT(user_id) FROM problem_inf;
+    </select>
 </mapper>

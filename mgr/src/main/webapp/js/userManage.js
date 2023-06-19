@@ -115,23 +115,7 @@ function setUser(e) {
 		    }
 		})
 	}
-    function delUser(e) {
-    console.log(e.parentNode.parentNode.children[0].innerText.trim());
-    // $.ajax({
-    //     url:'delUser',
-    //     type:'POST',
-    //     data:{
-    //         uid:e.parentNode.parentNode.children[0].innerText.trim()
-    //     },
-    //     success:function (){
-    //         let currentPage = document.getElementById("currentPage").innerText;
-    //         selectUser(currentPage);
-    //     },
-    //     error:function (reps){
-    //         document.write(reps.responseText);
-    //     }
-    // })
-    }
+    
     let currentPage;
     let sumPage;
     function selectUser(page) {

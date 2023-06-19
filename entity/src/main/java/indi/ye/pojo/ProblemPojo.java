@@ -17,7 +17,10 @@ public class ProblemPojo {
     private int type_id;
     private int project_id;
     private  int user_id;
-
+    private  int problem_state;
+    private String type_name;
+    private String project_name;
+    private String user_name;
 
     public ProblemPojo() {
     }
