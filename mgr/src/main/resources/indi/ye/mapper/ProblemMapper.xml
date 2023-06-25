@@ -21,4 +21,42 @@
     <select id="selectProblemSize" resultType="Integer">
         Select COUNT(user_id) FROM problem_inf;
     </select>
+    <select id="delProblem">
+        UPDATE problem_inf SET problem_state = 0 WHERE problem_id = #{problem_id};
+    </select>
+    <select id="reProblem">
+        UPDATE problem_inf SET problem_state = 1 WHERE problem_id = #{problem_id};
+    </select>
+    <select id="selectChoose" resultType="indi.ye.pojo.ChoosePojo">
+        SELECT choose_id,choose_letter,choose_text FROM choose_inf WHERE problem_id = #{problem_id};
+    </select>
+    <insert id="addPaper">
+        INSERT INTO paper_inf (paper_name,project_id,user_id) VALUES(#{paperName},#{projectId},#{userId});
+    </insert>
+    <select id="selectPaper" resultType="indi.ye.pojo.PaperPojo">
+        SELECT paper_id,paper_name,paper_score,project_id FROM paper_inf WHERE user_id = #{userId};
+    </select>
+    <select id="selectBankProblem" resultType="indi.ye.pojo.ProblemPojo">
+        SELECT problem_inf.problem_id,problem_inf.problem_text,type_inf.type_name,user_inf.user_name
+        FROM paper_inf
+        LEFT JOIN problem_inf ON paper_inf.project_id=problem_inf.project_id  AND problem_inf.problem_state=1 AND paper_inf.paper_id=#{paperId}
+        LEFT JOIN type_inf ON problem_inf.type_id=type_inf.type_id
+        LEFT JOIN user_inf ON paper_inf.user_id=user_inf.user_id LIMIT #{page},10 ;
+    </select>
+    <select id="selectPaperProblem" resultType="indi.ye.pojo.ProblemPojo">
+        SELECT problem_inf.problem_id,problem_inf.problem_text,type_inf.type_name,user_inf.user_name,prob_pape_inf.problem_point
+        FROM prob_pape_inf
+        LEFT JOIN problem_inf ON prob_pape_inf.problem_id=problem_inf.problem_id AND prob_pape_inf.paper_id=#{paperId}
+        LEFT JOIN type_inf ON problem_inf.type_id=type_inf.type_id
+        LEFT JOIN user_inf ON problem_inf.user_id=user_inf.user_id LIMIT #{page},10 ;
+    </select>
+    <insert id="addPaperProblem">
+        INSERT INTO prob_pape_inf (problem_point,problem_id,paper_id) SELECT #{score},#{problemId},#{paperId}
+        <where>
+            NOT EXISTS (SELECT * FROM prob_pape_inf WHERE problem_id = #{problemId} AND paper_id = #{paperId})
+        </where>
+    </insert>
+    <update id="setPaperScore">
+        UPDATE paper_inf SET paper_score = #{sumScore} WHERE paper_id = #{paperId};
+    </update>
 </mapper>

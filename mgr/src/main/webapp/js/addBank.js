@@ -2,32 +2,8 @@
  let moreChoose=1;
  let userName=localStorage.getItem("userName");
 $("#userNameValue").val(userName);
-$("#changeAll").click(function(){
-	getChoose();
-	var changAll=document.getElementById("changeAll");
-	console.log("changAll:"+changAll.checked);
-	if(changAll.checked){
-		console.log("false");
-	var checkboxes = document.querySelectorAll("input[type='checkbox']"); //获取所有复选框
-	for (var i = 0; i < checkboxes.length; i++) {
-	  checkboxes[i].checked = true; //设置为选中
-	}
-	}else{
-		console.log("true");
-		var checkboxes = document.querySelectorAll("input[type='checkbox']"); //获取所有复选框
-		for (var i = 0; i < checkboxes.length; i++) {
-		  checkboxes[i].checked = false; //设置为未选中
-		}
-	}
-})
-function getChoose(){
-	var arr = [];	//声明一个数组用来存放遍历出来的checkbox value值
-	$("input[name='choose']:checked").each(function(i){	//遍历
-		arr.push($(this).val());	//将我们遍历出来的值push到数组中
-		//最后可以提交arr就可以实现将我们选中的checkbox的value值提交
-		console.log("arr:"+arr);
-	})
-}
+
+
 function updateBtn(){
 	var oneChoose=document.getElementById("oneChoose");
 	oneChoose.style.backgroundColor="rgb(242,242,242)";
@@ -223,9 +199,6 @@ function addChoose(){
 	</tr>
 	</table>`
 	moreChoose++;
- }
- function selectChoose(e){
-	 
  }
  function addProblem(){
 	let userId=localStorage.getItem("userId");
@@ -481,9 +454,8 @@ function updateTable(page){
 			document.getElementById("table").innerHTML=`<table class="informationTable" id="table" style="border-collapse: collapse;">
 		              <colgroup>
 		                <col style="width: 5%;">
-		                <col style="width: 5%;">
-						<col style="width: 30%;">
-						<col style="width: 10%;">
+						<col style="width: 40%;">
+						<col style="width: 5%;">
 						<col style="width: 15%;">
 						<col style="width: 10%;">
 						<col style="width: 5%;">
@@ -491,7 +463,6 @@ function updateTable(page){
 						<col style="width: 15%;">
 		              </colgroup>
 					<tr style="background-color: rgb(229,229,229);">
-		               <td><input type="checkbox" id="changeAll"  name="choose" value="changeAll">全选</td>
 					   <td>题目编号</td>
 		               <td>题干</td>
 					   <td>题型</td>
@@ -502,11 +473,10 @@ function updateTable(page){
 						<td>操作</td>
 		            </tr>`;
 					for(let i = 0; i < reps.data.list.length; i++){
-						let choose =reps.data.list[i].type_name == "单选题"? '<button class="selectChoose" style="background-color: rgb(168,131,68); width: 70px;" onclick="selectChoose(this)">查看选项</button>'
-						: (reps.data.list[i].type_name == "多选题"? '<button class="selectChoose" style="background-color: rgb(168,131,68); width: 70px;" onclick="selectChoose(this)">查看选项</button>' : '无');
+						let choose =reps.data.list[i].type_name == "单选题"? '<button onclick="selectChoose(this)" class="selectChoose" style="background-color: rgb(168,131,68); width: 70px;" data-toggle="modal" data-target="#setChooseModal" >查看选项</button>'
+						: (reps.data.list[i].type_name == "多选题"? '<button onclick="selectChoose(this)" class="selectChoose" style="background-color: rgb(168,131,68); width: 70px;" data-toggle="modal" data-target="#setChooseModal">查看选项</button>' : '无');
 						if(reps.data.list[i].problem_state==1){
 						document.getElementById("table").innerHTML+=`<tr>
-							<td><input type="checkbox" class="samllChoose" name="choose" value="${i+1}"></td>
 						    <td>${reps.data.list[i].problem_id}</td>
 						    <td>${reps.data.list[i].problem_text}</td>
 						    <td>${reps.data.list[i].type_name}</td>
@@ -514,12 +484,11 @@ function updateTable(page){
 							<td>${reps.data.list[i].problem_answer}</td>
 							<td>${reps.data.list[i].user_name}</td>
 							<td>${reps.data.list[i].project_name}</td>
-						    <td><button onclick="setUser(this)" class="altBtn" style="background-color: rgb(75,125,252);">修改</button>
-						 <button onclick="delUser(this)" class="altBtn" style="background-color: rgb(221,110,78)">禁用</button></td>
+						    <td><button onclick="modifyProblem(this)" class="altBtn" style="background-color: rgb(75,125,252);" data-toggle="modal" data-target="#setChooseModal" data-toggle="modal" data-target="#setChooseModal">修改</button>
+						 <button onclick="delProblem(this)" class="altBtn" style="background-color: rgb(221,110,78)">禁用</button></td>
 							</tr>`
 							}else{
 								document.getElementById("table").innerHTML+=`<tr>
-									<td><input type="checkbox" class="samllChoose" name="choose" value="${i+1}"></td>
 									<td>${reps.data.list[i].problem_id}</td>
 									<td>${reps.data.list[i].problem_text}</td>
 									<td>${reps.data.list[i].type_name}</td>
@@ -527,8 +496,8 @@ function updateTable(page){
 									<td>${reps.data.list[i].problem_answer}</td>
 									<td>${reps.data.list[i].user_name}</td>
 									<td>${reps.data.list[i].project_name}</td>
-								    <td><button onclick="setUser(this)" class="altBtn" style="background-color: rgb(75,125,252);">修改</button>
-								 <button onclick="delUser(this)" class="altBtn" style="background-color: rgb(0, 100, 48)">恢复</button></td>
+								    <td><button onclick="modifyProblem(this)" class="altBtn" style="background-color: rgb(75,125,252);" data-toggle="modal" data-target="#setChooseModal">修改</button>
+								 <button onclick="reProblem(this)" class="altBtn" style="background-color: rgb(0, 100, 48)">恢复</button></td>
 									</tr>`
 							}
 					}
@@ -562,6 +531,157 @@ function updateTable(page){
          alert("已经是最后一页啦！");
      }
  }
+ function delMoreProblem(){
+	 var arr = [];	//声明一个数组用来存放遍历出来的checkbox value值
+	 $("input[name='choose']:checked").each(function(i){	//遍历
+	 	arr.push($(this).val());	//将我们遍历出来的值push到数组中
+	 	//最后可以提交arr就可以实现将我们选中的checkbox的value值提交
+	 	console.log("arr:"+arr);
+	 })
+	let arrJSON=JSON.stringify(arr);
+	// $.ajax({
+	//     url:'delMoreProblem',
+	//     type:'POST',
+	//     data:{
+	//         'problemId' : arrJSON,
+	//     },
+	//     dataType:'JSON',
+	//     async:true,
+	// 	success:function(reps){
+	// 		alert("禁用成功!");
+	// 		let currentPage = document.getElementById("currentPage").innerText;
+	// 		updateTable(currentPage);
+	//     },
+	//     error:function (reps){
+	//         document.write(reps.responseText)
+	//     },
+	// })
+ }
+ function delProblem(e){
+	let problemId = e.parentNode.parentNode.children[0].innerText.trim();
+	$.ajax({
+	    url:'delProblem',
+	    type:'POST',
+	    data:{
+	        'problemId' : problemId,
+	    },
+	    dataType:'JSON',
+	    async:true,
+		success:function(reps){
+			alert("禁用成功!");
+			let currentPage = document.getElementById("currentPage").innerText;
+			updateTable(currentPage);
+	    },
+	    error:function (reps){
+	        document.write(reps.responseText)
+	    },
+	})
+	
+ }
+ function reProblem(e){
+ 	let problemId = e.parentNode.parentNode.children[0].innerText.trim();
+ 	$.ajax({
+ 	    url:'reProblem',
+ 	    type:'POST',
+ 	    data:{
+ 	        'problemId' : problemId,
+ 	    },
+ 	    dataType:'JSON',
+ 	    async:true,
+ 		success:function(reps){
+ 			alert("恢复成功!");
+ 			let currentPage = document.getElementById("currentPage").innerText;
+ 			updateTable(currentPage);
+ 	    },
+ 	    error:function (reps){
+ 	        document.write(reps.responseText)
+ 	    },
+ 	})
+ }
+ var chooArray = [];
+ function modifyProblem(e){
+
+	document.getElementById("setChooseModaBody").innerHTML=`<div id="setChooseModaBody">`
+	if(e.parentNode.parentNode.children[2].innerText.trim()=="单选题"){
+	let answer= e.parentNode.parentNode.children[4].innerText.trim();
+	let answerId=answer.charCodeAt(0)-65;
+	for(let i = 0; i < chooArray.length; i++){
+		if(answerId==i){
+		document.getElementById("setChooseModaBody").innerHTML+=`<div style="font-size: 15px;" class="choose">
+			选项${i+1}：是否是答案：<input type="radio" class="samllChoose" name="choose" value="${i+1}" checked>
+			<br />
+			<div>
+				<textarea class="form-control" rows="2" placeholder="${chooArray[i].chooseText}" id="chooseAValue"></textarea>
+			</div>
+		</div>`
+		}else{
+			document.getElementById("setChooseModaBody").innerHTML+=`<div style="font-size: 15px;" class="choose">
+				选项${i+1}：是否是答案：<input type="radio" class="samllChoose" name="choose" value="${i+1}" >
+				<br />
+				<div>
+					<textarea class="form-control" rows="2" placeholder="${chooArray[i].chooseText}" id="chooseAValue"></textarea>
+				</div>
+			</div>`
+		}
+	}
+	}else{
+	let answer= e.parentNode.parentNode.children[5].innerText.trim().split(",");
+	let answerId=-1;
+		for(let i = 0; i < chooArray.length; i++){
+			for(let j = 0; j < answer.length; j++){
+			answerId=answer[j].charCodeAt(0)-65;
+				if(answerId==i){
+					break;
+				}
+			}
+			if(answerId==i){
+			document.getElementById("setChooseModaBody").innerHTML+=`<div style="font-size: 15px;" class="choose">
+				选项${i+1}：是否是答案：<input type="checkbox" id="changeAll"  name="choose" value="${i+1}" checked>
+				<br />
+				<div>
+					<textarea class="form-control" rows="2" placeholder="${chooArray[i].chooseText}" id="chooseAValue"></textarea>
+				</div>
+			</div>`
+			answerId=-1;
+			}else{
+				document.getElementById("setChooseModaBody").innerHTML+=`<div style="font-size: 15px;" class="choose">
+				选项${i+1}：是否是答案：<input type="checkbox" id="changeAll"  name="choose" value="${i+1}">
+				<br />
+				<div>
+					<textarea class="form-control" rows="2" placeholder="${chooArray[i].chooseText}" id="chooseAValue"></textarea>
+				</div>
+			</div>`
+			}
+		}
+	}
+	document.getElementById("setChooseModaBody").innerHTML+=`</div>`
+ }
+ 
+ function selectChoose(e){
+	 let problemId = e.parentNode.parentNode.children[0].innerText.trim();
+	$.ajax({
+	    url:'selectChoose',
+	    type:'POST',
+	    data:{
+	        'problemId' : problemId
+	    },
+	    dataType:'JSON',
+	    async:true,
+		success:function(reps){
+			chooArray = [];
+			for(let i = 0; i < reps.data.list.length; i++){
+			var obj = {chooseId: reps.data.list[i].choose_id,chooseLetter: reps.data.list[i].choose_letter,chooseText: reps.data.list[i].choose_text};
+			console.log(obj);
+			chooArray.push(obj);
+			}
+			modifyProblem(e);
+	    },
+	    error:function (reps){
+	        document.write(reps.responseText)
+	    },
+	})
+ }
+ 
  
 
 

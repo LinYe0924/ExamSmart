@@ -21,6 +21,7 @@ public class ProblemPojo {
     private String type_name;
     private String project_name;
     private String user_name;
+    private  int problem_point;
 
     public ProblemPojo() {
     }

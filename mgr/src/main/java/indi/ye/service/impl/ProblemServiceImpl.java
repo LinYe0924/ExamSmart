@@ -2,6 +2,7 @@ package indi.ye.service.impl;
 
 import indi.ye.mapper.ProblemMapper;
 import indi.ye.pojo.ChoosePojo;
+import indi.ye.pojo.PaperPojo;
 import indi.ye.pojo.ProblemPojo;
 import indi.ye.pojo.UserManagePojo;
 import indi.ye.service.ProblemService;
@@ -46,7 +47,7 @@ public class ProblemServiceImpl implements ProblemService {
             charFlag++;
             if(i>0) {
                 letter = (char) charFlag;
-                problemMapper.addChoose(String.valueOf(letter), chooseList[i].getChooseText(), problemId);
+                problemMapper.addChoose(String.valueOf(letter), chooseList[i].getChoose_text(), problemId);
             }
         }
         return true;
@@ -79,4 +80,62 @@ public class ProblemServiceImpl implements ProblemService {
         List<ProblemPojo> list = problemMapper.selectProblem(num);
         return list;
     }
+
+    @Override
+    public boolean delProblem(int problemId) {
+        problemMapper.delProblem(problemId);
+        return true;
+    }@Override
+    public boolean reProblem(int problemId) {
+        problemMapper.reProblem(problemId);
+        return true;
+    }
+
+    @Override
+    public List<ChoosePojo> selectChoose(int problemId) {
+        List<ChoosePojo> chooseList= problemMapper.selectChoose(problemId);
+        return chooseList;
+    }
+
+    @Override
+    public boolean addPaper(String paperName,int projectId,int userId){
+        problemMapper.addPaper(paperName,projectId,userId);
+        return true;
+    }
+
+    @Override
+    public List<PaperPojo> selectPaper(int userId) {
+        List<PaperPojo> paperList=problemMapper.selectPaper(userId);
+        return paperList;
+    }
+
+    @Override
+    public List<ProblemPojo> selectBankProblem(int paperId, int page) {
+        int num=(page-1)*10;
+        List<ProblemPojo> problemList=problemMapper.selectBankProblem(paperId,num);
+        return problemList;
+    }
+
+    @Override
+    public List<ProblemPojo> selectPaperProblem(int paperId, int page) {
+        int num=(page-1)*10;
+        List<ProblemPojo> problemList=problemMapper.selectPaperProblem(paperId,num);
+        return problemList;
+    }
+
+    @Override
+    public boolean keepPaper(int paperId, String problemIdList,String scoreList,int sumScore) {
+        String[] problemIdSplit = problemIdList.split(",");
+        String[] scoreSplit = scoreList.split(",");
+        int problemId;
+        int score;
+        for (int i = 0; i < problemIdSplit.length; i++) {
+            problemId= Integer.parseInt(problemIdSplit[i]);
+            score=Integer.parseInt(scoreSplit[i]);
+            problemMapper.addPaperProblem(paperId,problemId,score);
+        }
+        problemMapper.setPaperScore(paperId,sumScore);
+        return true;
+    }
+
 }

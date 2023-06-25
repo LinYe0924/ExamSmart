@@ -12,16 +12,17 @@ import lombok.Data;
  */
 @Data
 public class ChoosePojo {
-    private String chooseId;
-    private String chooseText;
+    private String choose_id;
+    private String choose_text;
     private String yeNoAnswer;
+    private String choose_letter;
 
 
 
     @JsonCreator
-    public ChoosePojo(@JsonProperty("chooseId") String chooseId, @JsonProperty("chooseText") String chooseText, @JsonProperty("yeNoAnswer") String yeNoAnswer) {
-        this.chooseId = chooseId;
-        this.chooseText = chooseText;
+    public ChoosePojo(@JsonProperty("chooseId") String choose_id, @JsonProperty("chooseText") String choose_text, @JsonProperty("yeNoAnswer") String yeNoAnswer) {
+        this.choose_id = choose_id;
+        this.choose_text = choose_text;
         this.yeNoAnswer = yeNoAnswer;
     }
 }
