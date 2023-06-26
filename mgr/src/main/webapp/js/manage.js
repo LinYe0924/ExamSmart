@@ -11,10 +11,10 @@ function selectMenu(){
 		document.getElementById("left").innerHTML=`
 			<div class="item">
 			<div class="first_item">前台管理</div>
-			<div class="cecond_item" page="addBank">题库管理</div>
+			<div class="cecond_item" page="addBank">考题管理</div>
 			<div class="cecond_item" page="paper">试卷管理</div>
 			<div class="cecond_item" page="exam">考试管理</div>
-			<div class="cecond_item">成绩管理</div>
+			<div class="cecond_item" page="informatation">资讯管理</div>
 			<div class="cecond_item">考生管理</div>
 			
 
@@ -27,10 +27,10 @@ function selectMenu(){
 		document.getElementById("left").innerHTML=
 		`<div class="item">
 			<div class="first_item">前台管理</div>
-			<div class="cecond_item" page="addBank">题库管理</div>
+			<div class="cecond_item" page="addBank">考题管理</div>
 			<div class="cecond_item" page="paper">试卷管理</div>
 			<div class="cecond_item" page="exam">考试管理</div>
-			<div class="cecond_item">成绩管理</div>
+			<div class="cecond_item" page="informatation">资讯管理</div>
 			<div class="cecond_item">考生管理</div>
 		</div>`
 	}

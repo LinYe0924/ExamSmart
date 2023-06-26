@@ -6,4 +6,22 @@
     <insert id="addExam">
         INSERT INTO exam_inf (exam_name,start_time,end_time,paper_id,user_id,reg_end_time) VALUES(#{examNameValue},#{startDate},#{endDate},#{paperId},#{userId},#{endRegDate});
     </insert>
+    <select id="updateExamTable" resultType="indi.ye.pojo.ExamPojo">
+        Select exam_inf.exam_id,exam_inf.exam_name,exam_inf.start_time,exam_inf.end_time,exam_inf.reg_end_time,exam_inf.exam_state,paper_inf.paper_name,user_inf.user_name
+        FROM exam_inf
+        LEFT JOIN paper_inf ON paper_inf.paper_id=exam_inf.paper_id
+        LEFT JOIN user_inf ON exam_inf.user_id=user_inf.user_id AND exam_inf.user_id=#{userId} LIMIT #{page},5 ;
+    </select>
+    <update id="setExamState">
+        UPDATE exam_inf SET exam_state = #{state} WHERE exam_id = #{examId};
+    </update>
+    <select id="selectExam" resultType="indi.ye.pojo.ExamPojo">
+        Select exam_inf.exam_id,exam_inf.exam_name,exam_inf.start_time,exam_inf.end_time,exam_inf.reg_end_time,exam_inf.exam_state,paper_inf.paper_name,user_inf.user_name
+        FROM exam_inf
+        LEFT JOIN paper_inf ON paper_inf.paper_id=exam_inf.paper_id
+        LEFT JOIN user_inf ON exam_inf.user_id=user_inf.user_id AND exam_inf.user_id=#{userId} AND exam_inf.exam_state=1;
+    </select>
+    <insert id="addInformation">
+        INSERT INTO informatation_inf (informatation_tittle,informatation_text,exam_id,user_id) VALUES(#{tittle},#{text},#{examId},#{userId});
+    </insert>
 </mapper>

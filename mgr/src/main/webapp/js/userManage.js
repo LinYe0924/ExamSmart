@@ -151,7 +151,7 @@ function setUser(e) {
 					let state=reps.data.list[i].user_state == 0? '已停用' :'启用中';
 					//将时间戳转化为可读格式
 					let time=new Date(reps.data.list[i].user_time);
-					let formatted = time.toISOString().split('T')[0] + ' ' + time.toISOString().split('T')[1].substring(0, 5); 
+					let formatted = time.toLocaleString ();
                     //判断超级管理员并无法对其进行操作
 					if(reps.data.list[i].user_id==1){
 						document.getElementById("table").innerHTML+=`<tr>

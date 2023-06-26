@@ -19,4 +19,7 @@ public class ExamPojo {
     private Date reg_end_time;
     private int paper_id;
     private int user_id;
+    private String paper_name;
+    private String user_name;
+    private int exam_state;
 }

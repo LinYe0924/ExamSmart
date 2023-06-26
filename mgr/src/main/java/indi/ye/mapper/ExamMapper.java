@@ -1,9 +1,11 @@
 package indi.ye.mapper;
 
+import indi.ye.pojo.ExamPojo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @InterfaceName: ExamMapper
@@ -14,4 +16,8 @@ import java.util.Date;
 @Component
 public interface ExamMapper {
     public void addExam(@Param("examNameValue") String examNameValue,@Param("paperId") int paperId,@Param("userId") int userId,@Param("startDate") Date startDate,@Param("endDate") Date endDate,@Param("endRegDate") Date endRegDate);
+    public List updateExamTable(@Param("userId") int userId, @Param("page") int page);
+    public void setExamState(@Param("examId") int examId,@Param("state") int state);
+    public List selectExam(@Param("userId") int userId);
+    public void addInformation(@Param("tittle") String informationTittle,@Param("text") String informationText,@Param("userId") int userId,@Param("examId") int examId);
 }

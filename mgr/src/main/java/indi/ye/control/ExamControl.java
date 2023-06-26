@@ -1,6 +1,7 @@
 package indi.ye.control;
 
 import indi.ye.dto.JsonDto;
+import indi.ye.pojo.ExamPojo;
 import indi.ye.service.ExamService;
 import indi.ye.until.TimeUntil;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName: ExamControl
@@ -43,7 +45,41 @@ public class ExamControl {
     public JsonDto updateExamTable(HttpServletRequest req){
         int userId = Integer.parseInt(req.getParameter("userId"));
         int page = Integer.parseInt(req.getParameter("page"));
+        System.out.println("拿到的userId："+userId);
+        System.out.println("拿到的page："+page);
+        List<ExamPojo> examList = examService.updateExamTable(userId, page);
+        System.out.println("拿到了这么多数据："+examList.size()+"！！！");
         JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("list",examList);
         return jsonDto;
     }
+    @PostMapping("delExam")
+    public JsonDto delExam(HttpServletRequest req){
+        int examId = Integer.parseInt(req.getParameter("examId"));
+        int state = Integer.parseInt(req.getParameter("state"));
+        boolean res = examService.setExamState(examId, state);
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("res",res);
+        return jsonDto;
+    }
+    @PostMapping("selectExam")
+    public JsonDto selectExam(HttpServletRequest req){
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        List<ExamPojo> examList = examService.selectExam(userId);
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("list",examList);
+        return jsonDto;
+    }
+    @PostMapping("addInformation")
+    public JsonDto addInformation(HttpServletRequest req){
+        String informationTittle = req.getParameter("informationTittle");
+        String informationText = req.getParameter("informationText");
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        int examId = Integer.parseInt(req.getParameter("examId"));
+        boolean res = examService.addInformation(informationTittle, informationText, userId, examId);
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("res",res);
+        return jsonDto;
+    }
+
 }
