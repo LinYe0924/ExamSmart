@@ -1,0 +1,393 @@
+.registerbox {
+	margin: 0px auto;
+	margin-top: 50px;
+	width: 500px;
+	height: 650px;
+	border-radius: 3px;
+
+	background-color: rgb(255, 255, 255);
+	border: 1px solid #3280FC;
+}
+
+.loginB {
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+	color: rgb(255, 255, 255);
+	line-height: 50px;
+	margin: 30px auto;
+	width: 450px;
+	height: 500px;
+	border-radius: 5px;
+	background-color: rgb(50, 128, 252);
+	border: 1px solid #3280FC;
+}
+
+.loginW {
+	/* margin-top: 10px; */
+	float: left;
+	width: 450px;
+	height: 450px;
+	border-radius: 0px 0px 5px 5px;
+	background-color: rgb(255, 255, 255);
+}
+
+.tablephone {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 300px;
+	height: 35px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+#phone {
+	border: 1px solid #ccc;
+	outline: none;
+
+	text-decoration: none;
+	float: right;
+	width: 230px;
+	height: 31px;
+	background-color: rgb(255, 255, 255);
+}
+
+.textphone {
+	float: left;
+	margin-left: 15px;
+	margin-top: -6px;
+	font-size: 10px;
+
+	color: rgb(0, 0, 0);
+}
+
+.tableID {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 300px;
+	height: 35px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+#ID {
+	border: 1px solid #ccc;
+	outline: none;
+
+	text-decoration: none;
+	float: right;
+	width: 230px;
+	height: 31px;
+	background-color: rgb(255, 255, 255);
+}
+
+.textID {
+	float: left;
+	margin-left: 15px;
+	margin-top: -6px;
+	font-size: 10px;
+
+	color: rgb(0, 0, 0);
+}
+
+
+
+
+.tableName {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 300px;
+	height: 35px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+#Name {
+	border: 1px solid #ccc;
+	outline: none;
+
+	text-decoration: none;
+	float: right;
+	width: 230px;
+	height: 31px;
+	background-color: rgb(255, 255, 255);
+}
+
+.textName{
+	float: left;
+	margin-left: 15px;
+	margin-top: -6px;
+	font-size: 10px;
+
+	color: rgb(0, 0, 0);
+}
+
+
+
+.tableEmail {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 300px;
+	height: 35px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+#Email {
+	border: 1px solid #ccc;
+	outline: none;
+
+	text-decoration: none;
+	float: right;
+	width: 230px;
+	height: 31px;
+	background-color: rgb(255, 255, 255);
+}
+
+.textEmail{
+	float: left;
+	margin-left: 15px;
+	margin-top: -6px;
+	font-size: 10px;
+
+	color: rgb(0, 0, 0);
+}
+
+
+
+
+
+
+.tablepwd {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 300px;
+	height: 35px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+#pwd {
+	outline: none;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	float: right;
+	width: 230px;
+	height: 31px;
+	background-color: rgb(255, 255, 255);
+}
+
+.textpwd {
+	float: left;
+	margin-left: 15px;
+	margin-top: -6px;
+	font-size: 10px;
+
+	color: rgb(0, 0, 0);
+}
+
+
+.tablerepwd {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 300px;
+	height: 35px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+#repwd {
+	outline: none;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	float: right;
+	width: 230px;
+	height: 31px;
+	background-color: rgb(255, 255, 255);
+}
+
+.textrepwd {
+	float: left;
+	margin-left: 10px;
+	margin-top: -6px;
+	font-size: 10px;
+
+	color: rgb(0, 0, 0);
+}
+
+
+
+/* .tablephoto {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 300px;
+	height: 35px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+#photo {
+	outline: none;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	float: right;
+	width: 230px;
+	height: 31px;
+	background-color: rgb(255, 255, 255);
+}
+
+.textphoto {
+	float: left;
+	margin-left: 10px;
+	margin-top: -6px;
+	font-size: 10px;
+
+	color: rgb(0, 0, 0);
+}
+ */
+#uploadphoto {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 270px;
+	height: 150px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+#preview {
+
+	width: 200px;
+	height: 150px;
+}
+
+#imageInput {
+	margin-top: 10px;
+	float: left;
+	width: 70px;
+	height: 35px;
+}
+
+#upload {
+	margin-top: 10px;
+	float: left;
+	width: 70px;
+	height: 30px;
+	font-size: 10px;
+}
+
+
+.tablecode {
+	margin: 10px 5px 15px 60px;
+	float: left;
+	width: 300px;
+	height: 35px;
+	background-color: rgb(228, 233, 229);
+
+
+}
+
+
+
+
+
+#code {
+	outline: none;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	float: right;
+	width: 130px;
+	height: 31px;
+	background-color: rgb(255, 255, 255);
+}
+
+.codephoto {
+	border: 1px solid #ccc;
+	text-decoration: none;
+	float: right;
+	width: 100px;
+	height: 33px;
+	background-color: rgb(255, 255, 255);
+}
+
+.textcode {
+	float: left;
+	margin-left: 15px;
+	margin-top: -6px;
+	font-size: 10px;
+
+	color: rgb(0, 0, 0);
+}
+
+
+
+
+
+
+.divbutton {
+	border-radius: 3px;
+	margin-top: 30px;
+	float: left;
+	width: 450px;
+	height: 75px;
+	background-color: rgb(255, 255, 255);
+	border: 1px solid #3280FC;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#cancelbtn {
+	border-radius: 3px;
+	float: left;
+	font-size: 10px;
+	color: white;
+	/* border: 1px solid #ccc;
+	        text-decoration: none; */
+	margin: 15px 15px 20px 25px;
+	width: 180px;
+	height: 50px;
+	background-color: rgb(241, 163, 37);
+}
+
+
+#registerbtn {
+	border-radius: 3px;
+	float: left;
+	font-size: 10px;
+	color: white;
+	/* border: 1px solid #ccc;
+            text-decoration: none; */
+	margin: 15px 15px 20px 25px;
+	width: 180px;
+	height: 50px;
+	background-color: rgb(50, 129, 250);
+
+}
+
+s

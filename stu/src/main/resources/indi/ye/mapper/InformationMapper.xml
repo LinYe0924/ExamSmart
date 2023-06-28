@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.ye.mapper.InformationMapper">
+
+    <select id="selectInformation" resultType="indi.ye.pojo.InformationPojo">
+        Select informatation_inf.informatation_id , informatation_inf.informatation_tittle , informatation_inf.informatation_text , informatation_inf.informatation_time  , informatation_inf.exam_id ,informatation_inf.user_id
+        FROM informatation_inf ORDER BY informatation_time DESC LIMIT #{page},18 ;
+    </select>
+    <select id="selectExamName" resultType="indi.ye.vo.InformationInfoVo">
+    SELECT exam_name FROM exam_inf WHERE exam_id=#{id};
+    </select>
+    <select id="selectUserName" resultType="indi.ye.vo.InformationInfoVo">
+        SELECT user_name FROM user_inf WHERE user_id=#{id};
+    </select>
+</mapper>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>学生账号注册</title>
+		<script src="dist/lib/jquery/jquery.js"></script>
+		<link href="css/reg.css" rel="stylesheet" />
+		<script src="js/jquery.md5.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/js/zui.js"></script>
+	</head>
+	<body>
+		<div class="registerbox">
+			<div class="loginB">
+				学生注册账号
+				<div class="loginW">
+					<div class="tablephone">
+						<b class="textphone">手机号</b>
+						<input type="text" placeholder="请输入手机号" id="phone">
+					</div>
+					<div class="tableID">
+						<b class="textID">身份证</b>
+						<input type="text" placeholder="请输入身份证号" id="ID">
+					</div>
+					<div class="tableName">
+						<b class="textName">姓名</b>
+						<input type="text" placeholder="请输入姓名" id="Name">
+					</div>
+					<div class="tableEmail">
+						<b class="textEmail">邮箱</b>
+						<input type="text" placeholder="请输入邮箱号" id="Email">
+					</div>
+					<div class="tablepwd">
+						<b class="textpwd">密 &nbsp;码</b>
+						<input type="text" placeholder="请输入密码" id="pwd">
+					</div>
+					<div class="tablerepwd">
+						<b class="textrepwd">重复密码</b>
+						<input type="text" placeholder="请输入密码" id="repwd">
+					</div>
+					<div class="tablecode">
+						<b class="textcode">验证码</b>
+						<img src="code" class="codephoto" onclick="changeCode(this)">
+						<input type="text" placeholder="请输入验证码" id="code">
+					</div>
+				</div>
+				<div class="divbutton">
+					<button id="cancelbtn" onclick="returnLogin()">取消</button>
+					<button id="registerbtn" onclick="regstuBtn()">注册</button>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="js/reg.js"  type="text/javascript" charset="UTF-8"></script>
+</html>
