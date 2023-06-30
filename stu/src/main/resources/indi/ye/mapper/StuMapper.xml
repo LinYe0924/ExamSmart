@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.ye.mapper.StuMapper">
+    <insert id="regStu" parameterType="indi.ye.pojo.StuPojo"
+            useGeneratedKeys="true" keyProperty="stu_id">
+        INSERT INTO stu_inf (stu_name,stu_tel,id_num,stu_mail,stu_pwd) VALUES(#{stu.stu_name},#{stu.stu_tel},#{stu.id_num},#{stu.stu_mail},#{stu.stu_pwd});
+    </insert>
+    <select id="login" resultType="Integer">
+        SELECT stu_id FROM stu_inf WHERE stu_tel = #{uTel} AND stu_pwd = #{uPwd};
+    </select>
+</mapper>

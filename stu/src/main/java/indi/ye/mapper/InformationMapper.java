@@ -1,5 +1,6 @@
 package indi.ye.mapper;
 
+import indi.ye.pojo.ExamPojo;
 import indi.ye.vo.InformationInfoVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,11 @@ import java.util.List;
  */
 @Component
 public interface InformationMapper {
-    public List selectInformation(@Param("page") int page);
-    public InformationInfoVo selectExamName(@Param("id") int id);
-    public InformationInfoVo selectUserName(@Param("id") int id);
+    List selectInformation(@Param("page") int page);
+    InformationInfoVo selectExamName(@Param("id") int id);
+    InformationInfoVo selectUserName(@Param("id") int id);
+    List selectRegExam();
+    Integer selectRegState(@Param("stuId") int stuId,@Param("examId") int examId);
+    void regExam(@Param("examId") int examId,@Param("stuId") int stuId);
+    List selectRegEdExam(@Param("stuId") int stuId);
     }

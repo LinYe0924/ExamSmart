@@ -1,6 +1,7 @@
 package indi.ye.service;
 
 import indi.ye.pojo.ExamPojo;
+import indi.ye.vo.RegVo;
 
 import java.util.Date;
 import java.util.List;
@@ -12,9 +13,12 @@ import java.util.List;
  * @Date: 2023/6/25 16:15
  */
 public interface ExamService {
-    public boolean addExam(String examNameValue, int paperId,int userId, Date startDate,Date endDate,Date endRegDate);
-    public List<ExamPojo> updateExamTable(int userId, int page);
-    public boolean setExamState(int examId, int state);
-    public List<ExamPojo> selectExam(int userId);
-    public boolean addInformation(String informationTittle,String informationText,int userId,int examId);
+boolean addExam(String examNameValue, int paperId,int userId, Date startDate,Date endDate,Date endRegDate);
+     List<ExamPojo> updateExamTable(int userId, int page);
+     boolean setExamState(int examId, int state);
+     List<ExamPojo> selectExam(int userId);
+     boolean addInformation(String informationTittle,String informationText,int userId,int examId);
+     List<RegVo> selectRegs(int examId,int page);
+     boolean getReg(int regId );
+     boolean passReg(int regId );
 }

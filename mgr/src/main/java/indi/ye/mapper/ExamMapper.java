@@ -1,6 +1,7 @@
 package indi.ye.mapper;
 
 import indi.ye.pojo.ExamPojo;
+import indi.ye.vo.RegVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -20,4 +21,7 @@ public interface ExamMapper {
     public void setExamState(@Param("examId") int examId,@Param("state") int state);
     public List selectExam(@Param("userId") int userId);
     public void addInformation(@Param("tittle") String informationTittle,@Param("text") String informationText,@Param("userId") int userId,@Param("examId") int examId);
+    public List selectRegs(@Param("examId") int examId,@Param("page") int page);
+    boolean getReg(@Param("regId") int regId);
+    boolean passReg(@Param("regId") int regId);
 }

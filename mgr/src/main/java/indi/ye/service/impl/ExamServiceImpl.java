@@ -3,6 +3,7 @@ package indi.ye.service.impl;
 import indi.ye.mapper.ExamMapper;
 import indi.ye.pojo.ExamPojo;
 import indi.ye.service.ExamService;
+import indi.ye.vo.RegVo;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +48,25 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public boolean addInformation(String informationTittle, String informationText, int userId, int examId) {
         examMapper.addInformation(informationTittle,informationText,userId,examId);
+        return true;
+    }
+
+    @Override
+    public List<RegVo> selectRegs(int examId,int page) {
+        int num=(page-1)*5;
+        List<RegVo> list = examMapper.selectRegs(examId,num);
+        return list;
+    }
+
+    @Override
+    public boolean getReg(int regId) {
+        examMapper.getReg(regId);
+        return true;
+    }
+
+    @Override
+    public boolean passReg(int regId) {
+        examMapper.passReg(regId);
         return true;
     }
 

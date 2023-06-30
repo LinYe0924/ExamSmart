@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @ClassName: PageControl
- * @Description: 用户的contorl
+ * @Description: 页面跳转的contorl
  * @Author: ye
  * @Date: 2023/6/5 15:35
  */

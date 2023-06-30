@@ -14,4 +14,27 @@
     <select id="selectUserName" resultType="indi.ye.vo.InformationInfoVo">
         SELECT user_name FROM user_inf WHERE user_id=#{id};
     </select>
+    <select id="selectRegExam" resultType="indi.ye.pojo.ExamPojo">
+        select e.exam_id, e.exam_name, e.start_time, e.end_time, e.reg_end_time, p.project_name
+        from exam_inf AS e
+        join paper_inf AS pi on e.paper_id = pi.paper_id
+        join project_inf AS p on pi.project_id = p.project_id
+        where e.reg_end_time &gt; current_timestamp
+        order by e.exam_time desc;
+    </select>
+    <select id="selectRegState" resultType="Integer">
+        SELECT reg_id FROM reg_inf WHERE stu_id=#{stuId} AND exam_id=#{examId} AND pass_state &gt;=0;
+    </select>
+    <insert id="regExam">
+        INSERT INTO reg_inf (stu_id, exam_id) VALUES (#{stuId} , #{examId});
+    </insert>
+    <select id="selectRegEdExam" resultType="indi.ye.pojo.ExamPojo">
+        select e.exam_id, e.exam_name, e.start_time, e.end_time, e.reg_end_time, p.project_name
+        from reg_inf AS r
+        join exam_inf AS e on r.exam_id = e.exam_id
+        join paper_inf AS pi on e.paper_id = pi.paper_id
+        join project_inf AS p on pi.project_id = p.project_id
+        where e.start_time &gt; current_timestamp AND r.stu_id=#{stuId}
+        order by e.exam_time desc;
+    </select>
 </mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.ye.mapper.ExamInfoMapper">
+
+    <select id="selectExamInfo" resultType="indi.ye.pojo.ExamPojo">
+        Select exam_inf.exam_id,exam_inf.exam_name,exam_inf.start_time,exam_inf.end_time,exam_inf.reg_end_time,exam_inf.exam_state,project_inf.project_name,user_inf.user_name
+        FROM exam_inf
+        JOIN paper_inf ON paper_inf.paper_id=exam_inf.paper_id
+        JOIN project_inf ON project_inf.project_id=paper_inf.project_id
+        JOIN user_inf ON exam_inf.user_id=user_inf.user_id AND exam_inf.exam_id=#{examId} ;
+    </select>
+
+</mapper>

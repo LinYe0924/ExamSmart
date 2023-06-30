@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/jquery-3.6.0.min.js"></script>
+		<!-- ZUI 标准版压缩后的 CSS 文件 -->
+		  <link rel="stylesheet" href="dist/css/zui.min.css">
+		  <!-- ZUI Javascript 依赖 jQuery -->
+		  <script src="dist/lib/jquery/jquery.js"></script>
+		  <!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+		  <script src="dist/js/zui.min.js"></script>
+		  <link href="dist/lib/datagrid/zui.datagrid.min.css" rel="stylesheet">
+		  <script src="dist/lib/datagrid/zui.datagrid.min.js"></script>
+		  <link href="dist/lib/datetimepicker/datetimepicker.min.css" rel="stylesheet">
+		  <script src="dist/lib/datetimepicker/datetimepicker.min.js"></script>
+		<meta charset="utf-8">
+		<title>考试管理</title>
+	</head>
+	<link href="css/judgeReg.css" rel="stylesheet"/>
+	<body>
+		<div class="right">
+		<div class="lineTitle">
+		    报名审核
+		</div>
+		<div class="buttonGroup">
+			<div class="inputText" >
+			    <div class="classFont">创建人</div>
+			    <input type="text" class="input" id="userNameValue" disabled='disabled'>
+			</div>
+		    <div class="inputText">
+		        <div class="classFont">选择考试</div>
+		        <select class="input"  id="examValue">
+		            <option value="0">未选择</option>
+		            <option value="2">数学</option>
+					<option value="3">英语</option>
+					<option value="4">物理</option>
+					<option value="5">生物</option>
+					<option value="6">化学</option>
+					<option value="7">政治</option>
+					<option value="8">历史</option>
+					<option value="9">地理</option>
+					<option value="10">其他</option>
+		        </select>
+		    </div>
+		   <button id="selectBtn" style="width: 200px;" onclick="selectRegs()">查询报名信息</button>
+		</div>
+		<div class="information">
+		        <div class="informationTittle">
+		
+		        </div>
+				
+		        <table class="informationTable" id="table" style="border-collapse: collapse;">
+		              <colgroup>
+		                <col style="width: 10%;">
+						<col style="width: 20%;">
+						<col style="width: 10%;">
+						<col style="width: 10%;">
+						<col style="width: 10%;">
+						<col style="width: 20%;">
+						<col style="width: 10%;">
+		              </colgroup>
+					<tr style="background-color: rgb(229,229,229);">
+						<td>报名编号</td>
+						<td>考试名称</td>
+						<td>组织者</td> 
+						<td>考生</td> 
+						<td>审核状态</td> 
+						<td>报名时间</td>
+						<td>操作</td>
+		            </tr>
+		        </table>
+		        <div class="turnPage" style="margin-left: 350px ; margin-top: 10px">
+		
+		            <button id="upPage">上一页</button>
+		            <span id="currentPage">1</span>
+		            <span>/</span>
+		            <span id="sumPage">2</span>
+		            <button id="downPage">下一页</button>
+		        </div>
+		    </div>
+		</div>
+		<!-- 手动添加试题的对话框HTML -->
+		<div class="modal fade" id="myModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		     <div class="modal-header">
+		             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+		             <h4 class="modal-title">新增考试</h4>
+		           </div>
+		           <div class="modal-body">
+					   <div class="inputText">
+					       <div class="classFont">考试名</div>
+					       <input type="text" class="input" id="examNameValue">
+					   </div>
+					<div class="inputText">
+					    <div class="classFont">选择试卷</div>
+					    <select class="input"  id="paperId">
+							<option value="0">请选择试卷</option>
+					        <option value="1">语文</option>
+					        <option value="2">数学</option>
+							<option value="3">英语</option>
+							<option value="4">物理</option>
+							<option value="5">生物</option>
+							<option value="6">化学</option>
+							<option value="7">政治</option>
+							<option value="8">历史</option>
+							<option value="9">地理</option>
+							<option value="10">其他</option>
+					    </select>
+					</div>
+					
+					<br>
+					<div></div>
+					<br>
+					<div>
+					<input type="text" class="form-control form-datetime" placeholder="请选择考试开始时间" readonly="readonly" style="width: 80%; margin-left: 20px;" id="startTime">
+					</div>
+					<br>
+					<div>
+					<input type="text" class="form-control form-datetime" placeholder="请选择考试结束时间" readonly="readonly" style="width: 80%; margin-left: 20px;" id="endTime">
+					</div>
+					<br>
+					<div>
+					<input type="text" class="form-control form-datetime" placeholder="请选择报名结束时间" readonly="readonly" style="width: 80%; margin-left: 20px;" id="endRegTime">
+					</div>
+		           <div class="modal-footer">
+		             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		             <button type="button" class="btn btn-primary" id="keepPwd" onclick="addExam()">保存</button>
+		           </div>
+		    </div>
+		  </div>
+		</div>
+		</div>
+		
+		
+
+</body>
+	<script src="js/judgeReg.js"></script>
+</html>

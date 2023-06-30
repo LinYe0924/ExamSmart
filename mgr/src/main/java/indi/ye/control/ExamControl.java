@@ -4,6 +4,7 @@ import indi.ye.dto.JsonDto;
 import indi.ye.pojo.ExamPojo;
 import indi.ye.service.ExamService;
 import indi.ye.until.TimeUntil;
+import indi.ye.vo.RegVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,5 +82,33 @@ public class ExamControl {
         jsonDto.getData().put("res",res);
         return jsonDto;
     }
-
+    @PostMapping("selectRegs")
+    public JsonDto selectRegs(HttpServletRequest req){
+        int examId = Integer.parseInt(req.getParameter("examId"));
+        int page = Integer.parseInt(req.getParameter("page"));
+        List<RegVo> regList = examService.selectRegs(examId,page);
+        System.out.println("考试id："+examId);
+        System.out.println("查到了："+regList.size());
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("list",regList);
+        return jsonDto;
+    }
+    @PostMapping("getReg")
+    public JsonDto getReg(HttpServletRequest req){
+        int regId = Integer.parseInt(req.getParameter("regId"));
+        boolean res = examService.getReg(regId);
+        System.out.println("通过！");
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("res",res);
+        return jsonDto;
+    }
+    @PostMapping("passReg")
+    public JsonDto passReg(HttpServletRequest req){
+        int regId = Integer.parseInt(req.getParameter("regId"));
+        boolean res = examService.passReg(regId);
+        System.out.println("驳回！");
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("res",res);
+        return jsonDto;
+    }
 }

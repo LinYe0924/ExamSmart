@@ -22,14 +22,14 @@ function regstuBtn() {
 	  return;
 	} else {
 	  // 使用正则表达式的test方法检查id是否符合格式
-	  if (regex.test(id)) {
+	  if (regex.test(ID)) {
 	  } else {
 		alert("身份证号格式错误！");
 		return;
 	  }
 	}
 	// 定义一个正则表达式来匹配手机号
-	var rege = /^0[6-7]\d{8}$/;
+	var rege = /^1[3-9]\d{9}$/;
 	
 	// 使用typeof运算符检查phone是否定义了
 	if (typeof phone === 'undefined') {
@@ -80,9 +80,9 @@ function regstuBtn() {
             async: true,
             success: function (response) {
                 var res = response.data.res;
-                if (res==1){
+                if (res>0){
                     alert("注册成功,即将返回登入窗口");
-                    window.location.href = "page?p=studentlogin";
+                    window.location.href = "toPage?page=login";
                 }else if (res==0){
                     alert("注册失败");
                     document.getElementById("phone").value="";
@@ -91,7 +91,7 @@ function regstuBtn() {
                     document.getElementById("pwd").value="";
                     document.getElementById("repwd").value="";
                     document.getElementById("code").value="";
-                }else if (res==3){
+                }else if (res==-1){
                     alert("验证码错误");
                     document.getElementById("code").value="";
                 }

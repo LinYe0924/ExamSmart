@@ -24,4 +24,16 @@
     <insert id="addInformation">
         INSERT INTO informatation_inf (informatation_tittle,informatation_text,exam_id,user_id) VALUES(#{tittle},#{text},#{examId},#{userId});
     </insert>
+    <select id="selectRegs" resultType="indi.ye.vo.RegVo">
+        Select reg_inf.reg_id,reg_inf.pass_state,reg_inf.reg_time,reg_inf.stu_id,reg_inf.exam_id,exam_inf.exam_name,stu_inf.stu_name
+        FROM reg_inf
+         JOIN exam_inf ON exam_inf.exam_id=reg_inf.exam_id
+         JOIN stu_inf ON stu_inf.stu_id=reg_inf.stu_id AND reg_inf.exam_id=#{examId} LIMIT #{page},5 ;
+    </select>
+    <update id="getReg">
+        UPDATE reg_inf SET pass_state = 1 WHERE reg_id = #{regId};
+    </update>
+    <update id="passReg">
+        UPDATE reg_inf SET pass_state = -1 WHERE reg_id = #{regId};
+    </update>
 </mapper>

@@ -1,8 +1,9 @@
 package indi.ye.service.impl;
 
 import indi.ye.mapper.InformationMapper;
+import indi.ye.pojo.ExamPojo;
 import indi.ye.pojo.InformationPojo;
-import indi.ye.service.SelectInformationService;
+import indi.ye.service.InformationService;
 import indi.ye.vo.InformationInfoVo;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @Component
 @Transactional(rollbackFor = Exception.class)//出现异常就回滚
-public class SelectInformationServiceImpl implements SelectInformationService {
+public class InformationServiceImpl implements InformationService {
     @Resource
     InformationMapper informationMapper;
     @Override
@@ -38,5 +39,37 @@ public class SelectInformationServiceImpl implements SelectInformationService {
             selectUserName.setExam_name("无");
         }
         return selectUserName;
+    }
+
+    @Override
+    public List<ExamPojo> selectRegExam(int stuId) {
+        List<ExamPojo> list = informationMapper.selectRegExam();
+        int res=0;
+        for (int i = 0; i < list.size(); i++) {
+            try {
+                res=informationMapper.selectRegState(stuId,list.get(i).getExam_id());
+            } catch (Exception e) {
+                System.out.println("未报名该考试！");
+                res=0;
+            }
+            if(res!=0){
+                list.get(i).setRegState(1);
+            }else {
+                list.get(i).setRegState(0);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public boolean regExam(int examId, int stuId) {
+        informationMapper.regExam(examId,stuId);
+        return true;
+    }
+
+    @Override
+    public List<ExamPojo> selectRegEdExam(int stuId) {
+        List<ExamPojo> list = informationMapper.selectRegEdExam(stuId);
+        return list;
     }
 }
