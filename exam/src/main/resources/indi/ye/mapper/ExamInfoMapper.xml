@@ -11,5 +11,19 @@
         JOIN project_inf ON project_inf.project_id=paper_inf.project_id
         JOIN user_inf ON exam_inf.user_id=user_inf.user_id AND exam_inf.exam_id=#{examId} ;
     </select>
-
+    <select id="selectPaperProblem" resultType="indi.ye.vo.PaperProblemVo">
+        Select problem_inf.problem_id,problem_inf.problem_text,problem_inf.problem_answer,problem_inf.type_id,prob_pape_inf.problem_point
+        FROM exam_inf
+        JOIN prob_pape_inf ON prob_pape_inf.paper_id=exam_inf.paper_id
+        JOIN problem_inf ON problem_inf.problem_id=prob_pape_inf.problem_id AND exam_inf.exam_id=#{examId} ;
+    </select>
+    <select id="selectChoose" resultType="indi.ye.vo.ChooseVo">
+        SELECT choose_id,choose_letter,choose_text,problem_id FROM choose_inf WHERE problem_id=#{problemId};
+    </select>
+    <update id="setExamState">
+        UPDATE reg_inf SET exam_state = 1 WHERE reg_id = #{regId};
+    </update>
+    <insert id="setScore">
+        INSERT INTO score_inf (score_num, stu_id, exam_id) VALUES (#{score}, #{stuId}, #{examId});
+    </insert>
 </mapper>

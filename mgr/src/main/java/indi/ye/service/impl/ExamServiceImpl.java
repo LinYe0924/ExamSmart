@@ -4,6 +4,7 @@ import indi.ye.mapper.ExamMapper;
 import indi.ye.pojo.ExamPojo;
 import indi.ye.service.ExamService;
 import indi.ye.vo.RegVo;
+import indi.ye.vo.ScoreVo;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,6 +69,13 @@ public class ExamServiceImpl implements ExamService {
     public boolean passReg(int regId) {
         examMapper.passReg(regId);
         return true;
+    }
+
+    @Override
+    public List<ScoreVo> selectScore(int examId, int page) {
+        int num=(page-1)*5;
+        List<ScoreVo> list = examMapper.selectScore(examId, num);
+        return list;
     }
 
 }

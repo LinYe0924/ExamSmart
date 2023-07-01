@@ -10,4 +10,7 @@
     <select id="login" resultType="Integer">
         SELECT stu_id FROM stu_inf WHERE stu_tel = #{uTel} AND stu_pwd = #{uPwd};
     </select>
+    <select id="selectStuInfo" resultType="indi.ye.pojo.StuPojo">
+        SELECT stu_id,stu_name,stu_tel,id_num,stu_mail FROM stu_inf WHERE stu_id = #{stuId};
+    </select>
 </mapper>

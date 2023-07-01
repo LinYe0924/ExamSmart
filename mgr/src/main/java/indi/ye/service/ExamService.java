@@ -2,6 +2,7 @@ package indi.ye.service;
 
 import indi.ye.pojo.ExamPojo;
 import indi.ye.vo.RegVo;
+import indi.ye.vo.ScoreVo;
 
 import java.util.Date;
 import java.util.List;
@@ -21,4 +22,5 @@ boolean addExam(String examNameValue, int paperId,int userId, Date startDate,Dat
      List<RegVo> selectRegs(int examId,int page);
      boolean getReg(int regId );
      boolean passReg(int regId );
+     List<ScoreVo> selectScore(int examId, int page);
 }

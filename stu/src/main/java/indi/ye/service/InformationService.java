@@ -3,6 +3,7 @@ package indi.ye.service;
 import indi.ye.pojo.ExamPojo;
 import indi.ye.pojo.InformationPojo;
 import indi.ye.vo.InformationInfoVo;
+import indi.ye.vo.ScoreVo;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface InformationService {
     List<ExamPojo> selectRegExam(int stuId);
     boolean regExam(int examId, int stuId);
     List<ExamPojo> selectRegEdExam(int stuId);
+    List<ScoreVo> selectScore(int stuId, int page);
 }

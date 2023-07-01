@@ -10,6 +10,8 @@
 		  <script src="dist/js/zui.min.js"></script>
 		  <link href="dist/lib/datagrid/zui.datagrid.min.css" rel="stylesheet">
 		  <script src="dist/lib/datagrid/zui.datagrid.min.js"></script>
+		  <link href="dist/lib/uploader/zui.uploader.css" rel="stylesheet">
+		  <script src="dist/lib/uploader/zui.uploader.js"></script>
 		<meta charset="utf-8">
 		<title>创建题库</title>
 	</head>
@@ -53,7 +55,7 @@
 		    <button id="selectBtn">查询试题</button>
 		    <!-- 对话框触发按钮 -->
 		    <button data-toggle="modal" data-target="#myModal" id="insterProblem" style="background-color: darkslategray;">手动添加试题</button>
-			<button id="insert" style="background-color: rgb(38,48,92)" >一键添加试题</button>
+			<button id="add-btn" data-position="fit" data-toggle="modal" data-target="#batch-import" style="background-color: rgb(38,48,92)" >一键添加试题</button>
 			<button onclick="delMoreProblem()" class="altBtn" style="background-color: rgb(221,110,78)">批量禁用</button>
 		</div>
 		<div class="information">
@@ -203,7 +205,53 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- 批量添加试题对话框 -->
+<div class="modal fade" id="batch-import">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+				<h4 class="modal-title">批量添加</h4>
+			  </div>
+			  <div class="modal-body">
+				<div class="input-group">
+				  <span class="input-group-addon">选择上传科目</span>
+				  <select id="upload-subject" class="form-control">
+					  <option value="1">语文</option>
+					  <option value="2">数学</option>
+					  <option value="3">英语</option>
+					  <option value="4">物理</option>
+					  <option value="5">生物</option>
+					  <option value="6">化学</option>
+					  <option value="7">政治</option>
+					  <option value="8">历史</option>
+					  <option value="9">地理</option>
+					  <option value="10">其他</option>
+				  </select>
+				</div>
+				<div id='uploaderExample3' class="uploader" data-ride="uploader">
+				  <div class="uploader-message text-center">
+				    <div class="content"></div>
+				    <button type="button" class="close">×</button>
+				  </div>
+				  <div class="uploader-files file-list file-list-grid"></div>
+				  <div class="uploader-operate-btn">
+				    <hr class="divider">
+				    <div class="uploader-status pull-right text-muted"></div>
+					<div class="uploader-btn">
+						<button type="button" class="btn btn-link uploader-btn-browse"><i class="icon icon-plus"></i> 选择文件</button>
+						<button type="button" class="btn btn-link uploader-btn-start"><i class="icon icon-cloud-upload"></i> 开始上传</button>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="notSaveAdmin">关闭</button>
+			  </div>
+		    </div>
+		  </div>
+		</div>
+	</body>	
 </body>
 	<script src="js/addBank.js"></script>
 </html>

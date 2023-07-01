@@ -5,6 +5,7 @@ import indi.ye.pojo.ExamPojo;
 import indi.ye.pojo.InformationPojo;
 import indi.ye.service.InformationService;
 import indi.ye.vo.InformationInfoVo;
+import indi.ye.vo.ScoreVo;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,6 +71,13 @@ public class InformationServiceImpl implements InformationService {
     @Override
     public List<ExamPojo> selectRegEdExam(int stuId) {
         List<ExamPojo> list = informationMapper.selectRegEdExam(stuId);
+        return list;
+    }
+
+    @Override
+    public List<ScoreVo> selectScore(int stuId, int page) {
+        int num=(page-1)*5;
+        List<ScoreVo> list = informationMapper.selectScore(stuId, num);
         return list;
     }
 }

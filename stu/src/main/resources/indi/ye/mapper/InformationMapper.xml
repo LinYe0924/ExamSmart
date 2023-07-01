@@ -29,12 +29,20 @@
         INSERT INTO reg_inf (stu_id, exam_id) VALUES (#{stuId} , #{examId});
     </insert>
     <select id="selectRegEdExam" resultType="indi.ye.pojo.ExamPojo">
-        select e.exam_id, e.exam_name, e.start_time, e.end_time, e.reg_end_time, p.project_name
+        select e.exam_id, e.exam_name, e.start_time, e.end_time, e.reg_end_time, p.project_name,r.reg_id
         from reg_inf AS r
         join exam_inf AS e on r.exam_id = e.exam_id
         join paper_inf AS pi on e.paper_id = pi.paper_id
         join project_inf AS p on pi.project_id = p.project_id
-        where e.start_time &gt; current_timestamp AND r.stu_id=#{stuId}
+        where e.start_time &gt; current_timestamp AND r.stu_id=#{stuId} AND r.exam_state=0 AND r.pass_state=1
         order by e.exam_time desc;
+    </select>
+    <select id="selectScore" resultType="indi.ye.vo.ScoreVo">
+        SELECT score_inf.score_id,score_inf.score_num,score_inf.score_time,exam_inf.exam_name,reg_inf.reg_id,paper_inf.paper_score
+        FROM stu_inf
+        JOIN reg_inf ON reg_inf.stu_id=stu_inf.stu_id AND stu_inf.stu_id=#{stuId}
+        JOIN exam_inf ON exam_inf.exam_id=reg_inf.exam_id
+        JOIN score_inf ON score_inf.stu_id=stu_inf.stu_id
+        JOIN paper_inf ON exam_inf.paper_id=paper_inf.paper_id  LIMIT #{page},5 ;
     </select>
 </mapper>

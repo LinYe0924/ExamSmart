@@ -14,4 +14,5 @@ import org.springframework.stereotype.Component;
 public interface StuMapper {
      void regStu(@Param("stu") StuPojo stu);
      Integer login(@Param("uTel") String uTel ,@Param("uPwd") String uPwd);
+     StuPojo selectStuInfo(@Param("stuId") int stuId);
 }

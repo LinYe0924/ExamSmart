@@ -36,4 +36,11 @@ public class StuServiceImpl implements StuService {
         }
         return res;
     }
+
+    @Override
+    public StuPojo selectStuInfo(int stuId) {
+        System.out.println("查询学生信息！");
+        StuPojo stuPojo = stuMapper.selectStuInfo(stuId);
+        return stuPojo;
+    }
 }

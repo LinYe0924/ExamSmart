@@ -24,4 +24,5 @@ public interface ExamMapper {
     public List selectRegs(@Param("examId") int examId,@Param("page") int page);
     boolean getReg(@Param("regId") int regId);
     boolean passReg(@Param("regId") int regId);
+    public List selectScore(@Param("examId") int examId,@Param("page") int page);
 }

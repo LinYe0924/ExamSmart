@@ -16,7 +16,7 @@ function selectMenu(){
 			<div class="cecond_item" page="exam">考试管理</div>
 			<div class="cecond_item" page="informatation">资讯管理</div>
 			<div class="cecond_item" page="judgeReg">报名审核</div>
-			<div class="cecond_item">查看成绩</div>
+			<div class="cecond_item" page="score">查看成绩</div>
 
 			</div>
 			<div class="item">
@@ -32,7 +32,7 @@ function selectMenu(){
 			<div class="cecond_item" page="exam">考试管理</div>
 			<div class="cecond_item" page="informatation">资讯管理</div>
 			<div class="cecond_item" page="judgeReg">报名审核</div>
-			<div class="cecond_item">查看成绩</div>
+			<div class="cecond_item" page="score">查看成绩</div>
 		</div>`
 	}
 	

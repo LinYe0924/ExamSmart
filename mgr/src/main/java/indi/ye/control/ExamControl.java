@@ -5,6 +5,7 @@ import indi.ye.pojo.ExamPojo;
 import indi.ye.service.ExamService;
 import indi.ye.until.TimeUntil;
 import indi.ye.vo.RegVo;
+import indi.ye.vo.ScoreVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -109,6 +110,15 @@ public class ExamControl {
         System.out.println("驳回！");
         JsonDto jsonDto=new JsonDto();
         jsonDto.getData().put("res",res);
+        return jsonDto;
+    }
+    @PostMapping("selectScore")
+    public JsonDto selectScore(HttpServletRequest req){
+        int examId = Integer.parseInt(req.getParameter("examId"));
+        int page = Integer.parseInt(req.getParameter("page"));
+        List<ScoreVo> scoreVos = examService.selectScore(examId, page);
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("list",scoreVos);
         return jsonDto;
     }
 }

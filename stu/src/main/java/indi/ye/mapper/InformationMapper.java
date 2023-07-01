@@ -23,4 +23,5 @@ public interface InformationMapper {
     Integer selectRegState(@Param("stuId") int stuId,@Param("examId") int examId);
     void regExam(@Param("examId") int examId,@Param("stuId") int stuId);
     List selectRegEdExam(@Param("stuId") int stuId);
+    public List selectScore(@Param("stuId") int stuId,@Param("page") int page);
     }

@@ -36,4 +36,12 @@
     <update id="passReg">
         UPDATE reg_inf SET pass_state = -1 WHERE reg_id = #{regId};
     </update>
+    <select id="selectScore" resultType="indi.ye.vo.ScoreVo">
+        SELECT score_inf.score_id,score_inf.score_num,score_inf.score_time,exam_inf.exam_name,reg_inf.reg_id,paper_inf.paper_score,stu_inf.stu_name
+        FROM score_inf
+        JOIN exam_inf ON exam_inf.exam_id=score_inf.exam_id
+        JOIN paper_inf ON exam_inf.paper_id=paper_inf.paper_id
+        JOIN reg_inf ON reg_inf.exam_id=score_inf.exam_id
+        JOIN stu_inf ON stu_inf.stu_id=score_inf.stu_id AND reg_inf.exam_id=#{examId} LIMIT #{page},5 ;
+    </select>
 </mapper>

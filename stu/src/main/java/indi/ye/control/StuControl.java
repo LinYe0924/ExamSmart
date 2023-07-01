@@ -6,6 +6,7 @@ import indi.ye.service.StuService;
 import indi.ye.until.CodePicture;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -87,6 +88,14 @@ public class StuControl {
         }
         JsonDto jsonDto=new JsonDto();
         jsonDto.getData().put("res",res);
+        return jsonDto;
+    }
+    @PostMapping("/selectStuInfo")
+    public JsonDto selectStuInfo(HttpServletRequest req){
+        int stuId = Integer.parseInt(req.getParameter("stuId"));
+        StuPojo stuPojo = stuService.selectStuInfo(stuId);
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("stu",stuPojo);
         return jsonDto;
     }
 }

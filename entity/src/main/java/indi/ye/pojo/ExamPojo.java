@@ -24,4 +24,5 @@ public class ExamPojo {
     private int exam_state;
     private String project_name;
     private int regState;
+    private int reg_id;
 }

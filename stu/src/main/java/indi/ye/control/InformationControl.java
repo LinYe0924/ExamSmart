@@ -5,6 +5,7 @@ import indi.ye.pojo.ExamPojo;
 import indi.ye.pojo.InformationPojo;
 import indi.ye.service.InformationService;
 import indi.ye.vo.InformationInfoVo;
+import indi.ye.vo.ScoreVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,6 +71,15 @@ public class InformationControl {
         System.out.println("查到了这么多数据："+examList.size());
         JsonDto jsonDto=new JsonDto();
         jsonDto.getData().put("list",examList);
+        return jsonDto;
+    }
+    @PostMapping("selectScore")
+    public JsonDto selectScore(HttpServletRequest req){
+        int stuId = Integer.parseInt(req.getParameter("stuId"));
+        int page = Integer.parseInt(req.getParameter("page"));
+        List<ScoreVo> scoreVos = informationService.selectScore(stuId, page);
+        JsonDto jsonDto=new JsonDto();
+        jsonDto.getData().put("list",scoreVos);
         return jsonDto;
     }
 }

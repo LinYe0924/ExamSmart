@@ -1,6 +1,7 @@
 package indi.ye.service;
 
 import indi.ye.pojo.StuPojo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @InterfaceName: StuService
@@ -11,4 +12,5 @@ import indi.ye.pojo.StuPojo;
 public interface StuService {
     public int regStu(StuPojo stu);
     public int login(String uTel ,String uPwd);
+    StuPojo selectStuInfo(int stuId);
 }

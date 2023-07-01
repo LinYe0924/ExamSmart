@@ -4,10 +4,13 @@ import indi.ye.dto.JsonDto;
 import indi.ye.mapper.ExamInfoMapper;
 import indi.ye.pojo.ExamPojo;
 import indi.ye.service.ExamInfoService;
+import indi.ye.vo.ChooseVo;
+import indi.ye.vo.PaperProblemVo;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: ExamServiceImpl
@@ -25,5 +28,29 @@ public class ExamInfoServiceImpl implements ExamInfoService {
         ExamPojo exam = examInfoMapper.selectExamInfo(examId);
         System.out.println("考试科目："+exam.getProject_name());
         return exam;
+    }
+
+    @Override
+    public List<PaperProblemVo> selectPaperProblem(int examId) {
+        List<PaperProblemVo> list = examInfoMapper.selectPaperProblem(examId);
+        return list;
+    }
+
+    @Override
+    public List<ChooseVo> selectChoose(int problem) {
+        List<ChooseVo> list = examInfoMapper.selectChoose(problem);
+        return list;
+    }
+
+    @Override
+    public boolean setExamState(int regId) {
+        examInfoMapper.setExamState(regId);
+        return true;
+    }
+
+    @Override
+    public boolean setScore(int examId, int stuId, int score) {
+        examInfoMapper.setScore(examId,stuId,score);
+        return true;
     }
 }
